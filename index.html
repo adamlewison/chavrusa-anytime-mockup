@@ -2,13 +2,20 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
     <title>Chavrusa-Anytime - Main Navigation</title>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
     <style>
+      :root {
+        --vh: 1vh;
+      }
+
       * {
         margin: 0;
         padding: 0;
@@ -16,40 +23,45 @@
       }
 
       body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+          sans-serif;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
-        padding: 20px;
+        padding: 0;
+        margin: 0;
+        overflow-x: hidden;
       }
 
       .app-container {
-        max-width: 400px;
+        width: 100%;
+        max-width: 390px;
         margin: 0 auto;
         background: #ffffff;
-        border-radius: 20px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        overflow: hidden;
+        min-height: calc(var(--vh, 1vh) * 100);
         position: relative;
+        display: flex;
+        flex-direction: column;
+        padding-top: env(safe-area-inset-top);
       }
 
       .header {
         background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
         color: white;
-        padding: 25px 20px 20px;
+        padding: 15px 16px 12px;
         position: relative;
         overflow: hidden;
+        flex-shrink: 0;
       }
 
       .header::before {
         content: "";
         position: absolute;
-        top: -50%;
-        right: -20%;
-        width: 200px;
-        height: 200px;
-        background: rgba(255, 255, 255, 0.1);
+        top: -30%;
+        right: -15%;
+        width: 120px;
+        height: 120px;
+        background: rgba(255, 255, 255, 0.08);
         border-radius: 50%;
-        transform: rotate(45deg);
       }
 
       .header-content {
@@ -60,19 +72,19 @@
       .logo {
         display: flex;
         align-items: center;
-        gap: 12px;
-        margin-bottom: 15px;
+        gap: 10px;
+        margin-bottom: 10px;
       }
 
       .logo-icon {
-        width: 40px;
-        height: 40px;
+        width: 32px;
+        height: 32px;
         background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-        border-radius: 12px;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 20px;
+        font-size: 16px;
         color: #1e3c72;
         font-weight: bold;
       }
@@ -82,70 +94,71 @@
       }
 
       .logo-title {
-        font-size: 22px;
+        font-size: 18px;
         font-weight: 700;
-        margin-bottom: 2px;
+        margin-bottom: 1px;
       }
 
       .logo-subtitle {
-        font-size: 12px;
-        opacity: 0.9;
+        font-size: 11px;
+        opacity: 0.85;
         font-weight: 400;
       }
 
       .user-greeting {
-        background: rgba(255, 255, 255, 0.15);
-        padding: 12px 16px;
-        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.12);
+        padding: 8px 12px;
+        border-radius: 8px;
         backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
       }
 
       .greeting-text {
-        font-size: 14px;
-        margin-bottom: 4px;
-        opacity: 0.9;
+        font-size: 12px;
+        margin-bottom: 2px;
+        opacity: 0.85;
       }
 
       .user-name {
-        font-size: 18px;
+        font-size: 15px;
         font-weight: 600;
       }
 
       .main-content {
-        padding: 30px 20px 20px;
+        padding: 20px 16px 16px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
       }
 
       .quick-stats {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 15px;
-        margin-bottom: 30px;
+        gap: 12px;
+        margin-bottom: 20px;
       }
 
       .stat-card {
         background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        padding: 20px 16px;
-        border-radius: 16px;
+        padding: 16px 12px;
+        border-radius: 12px;
         text-align: center;
-        border: 1px solid rgba(0, 0, 0, 0.05);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        transition: transform 0.2s ease;
       }
 
-      .stat-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      .stat-card:active {
+        transform: scale(0.98);
       }
 
       .stat-number {
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 700;
         color: #1e3c72;
-        margin-bottom: 4px;
+        margin-bottom: 2px;
       }
 
       .stat-label {
-        font-size: 12px;
+        font-size: 11px;
         color: #6c757d;
         font-weight: 500;
       }
@@ -153,149 +166,132 @@
       .navigation-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 16px;
-        margin-bottom: 25px;
+        gap: 12px;
+        margin-bottom: 20px;
+        flex: 1;
       }
 
       .nav-card {
         background: white;
-        border-radius: 18px;
-        padding: 24px 20px;
+        border-radius: 16px;
+        padding: 18px 14px;
         text-align: center;
-        transition: all 0.3s ease;
-        border: 2px solid transparent;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.2s ease;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
         cursor: pointer;
         position: relative;
         overflow: hidden;
+        min-height: 110px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
       }
 
-      .nav-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #667eea, #764ba2);
-        transform: scaleX(0);
-        transition: transform 0.3s ease;
-      }
-
-      .nav-card:hover::before {
-        transform: scaleX(1);
-      }
-
-      .nav-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-        border-color: #667eea;
+      .nav-card:active {
+        transform: scale(0.97);
+        background: rgba(255, 255, 255, 0.95);
       }
 
       .nav-icon {
-        width: 60px;
-        height: 60px;
-        margin: 0 auto 16px;
-        border-radius: 16px;
+        width: 48px;
+        height: 48px;
+        margin: 0 auto 12px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 24px;
+        font-size: 20px;
         color: white;
         position: relative;
       }
 
-      .nav-card:nth-child(1) .nav-icon {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      }
-
-      .nav-card:nth-child(2) .nav-icon {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      }
-
-      .nav-card:nth-child(3) .nav-icon {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-      }
-
-      .nav-card:nth-child(4) .nav-icon {
-        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-      }
-
       .nav-title {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 600;
         color: #2c3e50;
-        margin-bottom: 6px;
+        margin-bottom: 4px;
+        line-height: 1.2;
       }
 
       .nav-subtitle {
-        font-size: 12px;
+        font-size: 10px;
         color: #7f8c8d;
-        line-height: 1.4;
+        line-height: 1.3;
       }
 
       .bottom-navigation {
         background: #f8f9fa;
-        padding: 20px;
-        border-radius: 20px 20px 0 0;
-        margin-top: 20px;
+        padding: 12px 8px;
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
+        border-top: 1px solid rgba(0, 0, 0, 0.06);
+        flex-shrink: 0;
       }
 
       .bottom-nav-grid {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        gap: 8px;
+        gap: 4px;
       }
 
       .bottom-nav-item {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 12px 8px;
-        border-radius: 12px;
+        padding: 8px 4px;
+        border-radius: 10px;
         transition: all 0.2s ease;
         cursor: pointer;
         text-decoration: none;
         color: #6c757d;
+        position: relative;
       }
 
-      .bottom-nav-item:hover,
+      .bottom-nav-item:active {
+        transform: scale(0.95);
+      }
+
       .bottom-nav-item.active {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
-        transform: translateY(-2px);
       }
 
       .bottom-nav-icon {
-        font-size: 20px;
-        margin-bottom: 6px;
+        font-size: 18px;
+        margin-bottom: 4px;
+        position: relative;
       }
 
       .bottom-nav-label {
-        font-size: 10px;
+        font-size: 9px;
         font-weight: 500;
+        line-height: 1;
       }
 
       .notification-badge {
         position: absolute;
-        top: -4px;
-        right: -4px;
+        top: -6px;
+        right: -6px;
         background: #ff4757;
         color: white;
         border-radius: 50%;
-        width: 18px;
-        height: 18px;
-        font-size: 10px;
+        width: 16px;
+        height: 16px;
+        font-size: 9px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: 600;
+        border: 2px solid white;
       }
 
-      @keyframes fadeInUp {
+      /* Modern iOS-style animations */
+      @keyframes slideUp {
         from {
           opacity: 0;
-          transform: translateY(30px);
+          transform: translateY(20px);
         }
         to {
           opacity: 1;
@@ -304,31 +300,88 @@
       }
 
       .nav-card {
-        animation: fadeInUp 0.6s ease forwards;
+        animation: slideUp 0.4s ease forwards;
       }
 
       .nav-card:nth-child(1) {
-        animation-delay: 0.1s;
+        animation-delay: 0.05s;
       }
       .nav-card:nth-child(2) {
-        animation-delay: 0.2s;
+        animation-delay: 0.1s;
       }
       .nav-card:nth-child(3) {
-        animation-delay: 0.3s;
+        animation-delay: 0.15s;
       }
       .nav-card:nth-child(4) {
-        animation-delay: 0.4s;
+        animation-delay: 0.2s;
       }
 
-      @media (max-width: 480px) {
-        .app-container {
-          margin: 0;
-          border-radius: 0;
-          min-height: 100vh;
+      /* Responsive Design */
+      @media (max-width: 375px) {
+        .header {
+          padding: 12px 14px 10px;
         }
 
-        body {
-          padding: 0;
+        .main-content {
+          padding: 16px 14px 14px;
+        }
+
+        .nav-card {
+          padding: 14px 10px;
+          min-height: 100px;
+        }
+
+        .nav-icon {
+          width: 44px;
+          height: 44px;
+          font-size: 18px;
+          margin-bottom: 10px;
+        }
+
+        .nav-title {
+          font-size: 13px;
+        }
+
+        .nav-subtitle {
+          font-size: 9px;
+        }
+      }
+
+      @media (max-width: 320px) {
+        .quick-stats {
+          gap: 10px;
+        }
+
+        .navigation-grid {
+          gap: 10px;
+        }
+
+        .stat-card {
+          padding: 12px 8px;
+        }
+
+        .stat-number {
+          font-size: 18px;
+        }
+      }
+
+      /* High contrast for accessibility */
+      @media (prefers-contrast: high) {
+        .nav-card {
+          border: 2px solid #333;
+        }
+
+        .bottom-nav-item {
+          border: 1px solid #ccc;
+        }
+      }
+
+      /* Reduced motion for accessibility */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
         }
       }
     </style>
@@ -366,36 +419,56 @@
 
         <div class="navigation-grid">
           <div class="nav-card" onclick="navigateTo('matches')">
-            <div class="nav-icon">
+            <div
+              class="nav-icon"
+              style="
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+              "
+            >
               <i class="fas fa-users"></i>
             </div>
             <div class="nav-title">Find Chavrusa</div>
-            <div class="nav-subtitle">Discover your perfect study partner</div>
+            <div class="nav-subtitle">Discover your study partner</div>
           </div>
 
           <div class="nav-card" onclick="navigateTo('sessions')">
-            <div class="nav-icon">
+            <div
+              class="nav-icon"
+              style="
+                background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+              "
+            >
               <i class="fas fa-video"></i>
               <span class="notification-badge">2</span>
             </div>
             <div class="nav-title">Study Sessions</div>
-            <div class="nav-subtitle">Join or schedule Torah learning</div>
+            <div class="nav-subtitle">Join Torah learning</div>
           </div>
 
           <div class="nav-card" onclick="navigateTo('learning')">
-            <div class="nav-icon">
+            <div
+              class="nav-icon"
+              style="
+                background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+              "
+            >
               <i class="fas fa-book-open"></i>
             </div>
             <div class="nav-title">Torah Library</div>
-            <div class="nav-subtitle">Explore texts and topics</div>
+            <div class="nav-subtitle">Explore texts & topics</div>
           </div>
 
           <div class="nav-card" onclick="navigateTo('progress')">
-            <div class="nav-icon">
+            <div
+              class="nav-icon"
+              style="
+                background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+              "
+            >
               <i class="fas fa-chart-line"></i>
             </div>
             <div class="nav-title">My Progress</div>
-            <div class="nav-subtitle">Track your learning journey</div>
+            <div class="nav-subtitle">Track learning journey</div>
           </div>
         </div>
       </main>
@@ -443,101 +516,132 @@
     </div>
 
     <script>
-      function navigateTo(section) {
-        // Add haptic feedback for mobile
+      // Handle viewport changes for mobile
+      function handleViewportChange() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty("--vh", `${vh}px`);
+      }
+
+      window.addEventListener("resize", handleViewportChange);
+      window.addEventListener("orientationchange", handleViewportChange);
+      handleViewportChange();
+
+      // Add haptic feedback for supported devices
+      function triggerHaptic() {
         if (navigator.vibrate) {
-          navigator.vibrate(50);
+          navigator.vibrate(25);
         }
+      }
 
-        // Simulate navigation with visual feedback
-        const cards = document.querySelectorAll(".nav-card");
-        cards.forEach((card) => {
-          card.style.transform = "scale(0.95)";
-          setTimeout(() => {
-            card.style.transform = "";
-          }, 150);
-        });
+      // Enhanced navigation with better mobile UX
+      function navigateTo(section) {
+        triggerHaptic();
 
-        // In a real app, this would navigate to the appropriate screen
-        console.log(`Navigating to: ${section}`);
+        // Visual feedback
+        const activeCard = event.currentTarget;
+        activeCard.style.transform = "scale(0.94)";
 
-        // Show toast notification for demo
-        showToast(
-          `Opening ${section.charAt(0).toUpperCase() + section.slice(1)}...`
-        );
+        setTimeout(() => {
+          activeCard.style.transform = "";
+          showToast(
+            `Opening ${section.charAt(0).toUpperCase() + section.slice(1)}...`
+          );
+        }, 150);
       }
 
       function showToast(message) {
-        // Create toast element
         const toast = document.createElement("div");
         toast.textContent = message;
         toast.style.cssText = `
                 position: fixed;
-                bottom: 100px;
+                bottom: 120px;
                 left: 50%;
                 transform: translateX(-50%);
-                background: rgba(0, 0, 0, 0.8);
+                background: rgba(0, 0, 0, 0.85);
                 color: white;
-                padding: 12px 24px;
-                border-radius: 25px;
-                font-size: 14px;
+                padding: 10px 20px;
+                border-radius: 20px;
+                font-size: 13px;
                 z-index: 1000;
-                transition: all 0.3s ease;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 opacity: 0;
+                backdrop-filter: blur(10px);
+                font-weight: 500;
             `;
 
         document.body.appendChild(toast);
 
-        // Animate in
-        setTimeout(() => {
+        requestAnimationFrame(() => {
           toast.style.opacity = "1";
-          toast.style.transform = "translateX(-50%) translateY(-10px)";
-        }, 100);
+          toast.style.transform = "translateX(-50%) translateY(-8px)";
+        });
 
-        // Remove after 2 seconds
         setTimeout(() => {
           toast.style.opacity = "0";
-          toast.style.transform = "translateX(-50%) translateY(10px)";
+          toast.style.transform = "translateX(-50%) translateY(8px)";
           setTimeout(() => {
-            document.body.removeChild(toast);
+            if (document.body.contains(toast)) {
+              document.body.removeChild(toast);
+            }
           }, 300);
         }, 2000);
       }
 
-      // Add smooth interactions for bottom navigation
+      // Enhanced bottom navigation
       document.querySelectorAll(".bottom-nav-item").forEach((item) => {
         item.addEventListener("click", function (e) {
           e.preventDefault();
+          triggerHaptic();
 
-          // Remove active class from all items
           document
             .querySelectorAll(".bottom-nav-item")
             .forEach((i) => i.classList.remove("active"));
-
-          // Add active class to clicked item
           this.classList.add("active");
 
-          // Add subtle animation
           this.style.transform = "scale(0.9)";
           setTimeout(() => {
             this.style.transform = "";
-          }, 150);
+          }, 120);
         });
       });
+
+      // Improved touch interactions for mobile
+      document
+        .querySelectorAll(".nav-card, .bottom-nav-item")
+        .forEach((element) => {
+          element.addEventListener("touchstart", function () {
+            this.style.transform = "scale(0.96)";
+          });
+
+          element.addEventListener("touchend", function () {
+            setTimeout(() => {
+              this.style.transform = "";
+            }, 100);
+          });
+        });
 
       // Add loading state simulation
       document.addEventListener("DOMContentLoaded", function () {
         const cards = document.querySelectorAll(".nav-card");
         cards.forEach((card, index) => {
           card.style.opacity = "0";
-          card.style.transform = "translateY(20px)";
+          card.style.transform = "translateY(15px)";
 
           setTimeout(() => {
-            card.style.transition = "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)";
+            card.style.transition = "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
             card.style.opacity = "1";
             card.style.transform = "translateY(0)";
-          }, 100 * index);
+          }, 50 * index);
         });
+      });
+
+      // Handle online/offline status
+      window.addEventListener("online", () => {
+        showToast("Connection restored");
+      });
+
+      window.addEventListener("offline", () => {
+        showToast("Offline mode active");
       });
     </script>
   </body>
