@@ -1,464 +1,477 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chavrusa-Anytime - Main Navigation</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .app-container {
+        max-width: 400px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        color: white;
+        padding: 25px 20px 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: rotate(45deg);
+      }
+
+      .header-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+      }
+
+      .logo-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: #1e3c72;
+        font-weight: bold;
+      }
+
+      .logo-text {
+        flex: 1;
+      }
+
+      .logo-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+
+      .logo-subtitle {
+        font-size: 12px;
+        opacity: 0.9;
+        font-weight: 400;
+      }
+
+      .user-greeting {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 12px 16px;
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .greeting-text {
+        font-size: 14px;
+        margin-bottom: 4px;
+        opacity: 0.9;
+      }
+
+      .user-name {
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .main-content {
+        padding: 30px 20px 20px;
+      }
+
+      .quick-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+
+      .stat-card {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 20px 16px;
+        border-radius: 16px;
+        text-align: center;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .stat-number {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1e3c72;
+        margin-bottom: 4px;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: #6c757d;
+        font-weight: 500;
+      }
+
+      .navigation-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 25px;
+      }
+
+      .nav-card {
+        background: white;
+        border-radius: 18px;
+        padding: 24px 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .nav-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      .nav-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .nav-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+        border-color: #667eea;
+      }
+
+      .nav-icon {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 16px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: white;
+        position: relative;
+      }
+
+      .nav-card:nth-child(1) .nav-icon {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      .nav-card:nth-child(2) .nav-icon {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      }
+
+      .nav-card:nth-child(3) .nav-icon {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      }
+
+      .nav-card:nth-child(4) .nav-icon {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+      }
+
+      .nav-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 6px;
+      }
+
+      .nav-subtitle {
+        font-size: 12px;
+        color: #7f8c8d;
+        line-height: 1.4;
+      }
+
+      .bottom-navigation {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 20px 20px 0 0;
+        margin-top: 20px;
+      }
+
+      .bottom-nav-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+      }
+
+      .bottom-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 12px 8px;
+        border-radius: 12px;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        text-decoration: none;
+        color: #6c757d;
+      }
+
+      .bottom-nav-item:hover,
+      .bottom-nav-item.active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      .bottom-nav-icon {
+        font-size: 20px;
+        margin-bottom: 6px;
+      }
+
+      .bottom-nav-label {
+        font-size: 10px;
+        font-weight: 500;
+      }
+
+      .notification-badge {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        background: #ff4757;
+        color: white;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .nav-card {
+        animation: fadeInUp 0.6s ease forwards;
+      }
+
+      .nav-card:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .nav-card:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .nav-card:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .nav-card:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+
+      @media (max-width: 480px) {
+        .app-container {
+          margin: 0;
+          border-radius: 0;
+          min-height: 100vh;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+          padding: 0;
         }
-
-        .app-container {
-            max-width: 400px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
-            position: relative;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            padding: 25px 20px 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 200px;
-            height: 200px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            transform: rotate(45deg);
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: #1e3c72;
-            font-weight: bold;
-        }
-
-        .logo-text {
-            flex: 1;
-        }
-
-        .logo-title {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
-
-        .logo-subtitle {
-            font-size: 12px;
-            opacity: 0.9;
-            font-weight: 400;
-        }
-
-        .user-greeting {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 12px 16px;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .greeting-text {
-            font-size: 14px;
-            margin-bottom: 4px;
-            opacity: 0.9;
-        }
-
-        .user-name {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .main-content {
-            padding: 30px 20px 20px;
-        }
-
-        .quick-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            padding: 20px 16px;
-            border-radius: 16px;
-            text-align: center;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .stat-number {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1e3c72;
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: #6c757d;
-            font-weight: 500;
-        }
-
-        .navigation-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 25px;
-        }
-
-        .nav-card {
-            background: white;
-            border-radius: 18px;
-            padding: 24px 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .nav-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .nav-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-            border-color: #667eea;
-        }
-
-        .nav-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 16px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-            position: relative;
-        }
-
-        .nav-card:nth-child(1) .nav-icon {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .nav-card:nth-child(2) .nav-icon {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-
-        .nav-card:nth-child(3) .nav-icon {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
-        .nav-card:nth-child(4) .nav-icon {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-        }
-
-        .nav-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 6px;
-        }
-
-        .nav-subtitle {
-            font-size: 12px;
-            color: #7f8c8d;
-            line-height: 1.4;
-        }
-
-        .bottom-navigation {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 20px 20px 0 0;
-            margin-top: 20px;
-        }
-
-        .bottom-nav-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-        }
-
-        .bottom-nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 12px 8px;
-            border-radius: 12px;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            text-decoration: none;
-            color: #6c757d;
-        }
-
-        .bottom-nav-item:hover,
-        .bottom-nav-item.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .bottom-nav-icon {
-            font-size: 20px;
-            margin-bottom: 6px;
-        }
-
-        .bottom-nav-label {
-            font-size: 10px;
-            font-weight: 500;
-        }
-
-        .notification-badge {
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            background: #ff4757;
-            color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .nav-card {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        .nav-card:nth-child(1) { animation-delay: 0.1s; }
-        .nav-card:nth-child(2) { animation-delay: 0.2s; }
-        .nav-card:nth-child(3) { animation-delay: 0.3s; }
-        .nav-card:nth-child(4) { animation-delay: 0.4s; }
-
-        @media (max-width: 480px) {
-            .app-container {
-                margin: 0;
-                border-radius: 0;
-                min-height: 100vh;
-            }
-            
-            body {
-                padding: 0;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="app-container">
-        <header class="header">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">ח</div>
-                    <div class="logo-text">
-                        <div class="logo-title">Chavrusa-Anytime</div>
-                        <div class="logo-subtitle">Torah Learning Together</div>
-                    </div>
-                </div>
-                
-                <div class="user-greeting">
-                    <div class="greeting-text">Shalom,</div>
-                    <div class="user-name">David Goldstein</div>
-                </div>
+      <header class="header">
+        <div class="header-content">
+          <div class="logo">
+            <div class="logo-icon">ח</div>
+            <div class="logo-text">
+              <div class="logo-title">Chavrusa-Anytime</div>
+              <div class="logo-subtitle">Torah Learning Together</div>
             </div>
-        </header>
+          </div>
 
-        <main class="main-content">
-            <div class="quick-stats">
-                <div class="stat-card">
-                    <div class="stat-number">47</div>
-                    <div class="stat-label">Study Hours</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">12</div>
-                    <div class="stat-label">Day Streak</div>
-                </div>
+          <div class="user-greeting">
+            <div class="greeting-text">Shalom,</div>
+            <div class="user-name">David Goldstein</div>
+          </div>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <div class="quick-stats">
+          <div class="stat-card">
+            <div class="stat-number">47</div>
+            <div class="stat-label">Study Hours</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">12</div>
+            <div class="stat-label">Day Streak</div>
+          </div>
+        </div>
+
+        <div class="navigation-grid">
+          <div class="nav-card" onclick="navigateTo('matches')">
+            <div class="nav-icon">
+              <i class="fas fa-users"></i>
             </div>
+            <div class="nav-title">Find Chavrusa</div>
+            <div class="nav-subtitle">Discover your perfect study partner</div>
+          </div>
 
-            <div class="navigation-grid">
-                <div class="nav-card" onclick="navigateTo('matches')">
-                    <div class="nav-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="nav-title">Find Chavrusa</div>
-                    <div class="nav-subtitle">Discover your perfect study partner</div>
-                </div>
-
-                <div class="nav-card" onclick="navigateTo('sessions')">
-                    <div class="nav-icon">
-                        <i class="fas fa-video"></i>
-                        <span class="notification-badge">2</span>
-                    </div>
-                    <div class="nav-title">Study Sessions</div>
-                    <div class="nav-subtitle">Join or schedule Torah learning</div>
-                </div>
-
-                <div class="nav-card" onclick="navigateTo('learning')">
-                    <div class="nav-icon">
-                        <i class="fas fa-book-open"></i>
-                    </div>
-                    <div class="nav-title">Torah Library</div>
-                    <div class="nav-subtitle">Explore texts and topics</div>
-                </div>
-
-                <div class="nav-card" onclick="navigateTo('progress')">
-                    <div class="nav-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="nav-title">My Progress</div>
-                    <div class="nav-subtitle">Track your learning journey</div>
-                </div>
+          <div class="nav-card" onclick="navigateTo('sessions')">
+            <div class="nav-icon">
+              <i class="fas fa-video"></i>
+              <span class="notification-badge">2</span>
             </div>
-        </main>
+            <div class="nav-title">Study Sessions</div>
+            <div class="nav-subtitle">Join or schedule Torah learning</div>
+          </div>
 
-        <nav class="bottom-navigation">
-            <div class="bottom-nav-grid">
-                <a href="#" class="bottom-nav-item active">
-                    <div class="bottom-nav-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <div class="bottom-nav-label">Home</div>
-                </a>
-                
-                <a href="#" class="bottom-nav-item">
-                    <div class="bottom-nav-icon">
-                        <i class="fas fa-handshake"></i>
-                        <span class="notification-badge">3</span>
-                    </div>
-                    <div class="bottom-nav-label">Matches</div>
-                </a>
-                
-                <a href="#" class="bottom-nav-item">
-                    <div class="bottom-nav-icon">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
-                    <div class="bottom-nav-label">Sessions</div>
-                </a>
-                
-                <a href="#" class="bottom-nav-item">
-                    <div class="bottom-nav-icon">
-                        <i class="fas fa-comments"></i>
-                        <span class="notification-badge">5</span>
-                    </div>
-                    <div class="bottom-nav-label">Messages</div>
-                </a>
-                
-                <a href="#" class="bottom-nav-item">
-                    <div class="bottom-nav-icon">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="bottom-nav-label">Profile</div>
-                </a>
+          <div class="nav-card" onclick="navigateTo('learning')">
+            <div class="nav-icon">
+              <i class="fas fa-book-open"></i>
             </div>
-        </nav>
+            <div class="nav-title">Torah Library</div>
+            <div class="nav-subtitle">Explore texts and topics</div>
+          </div>
+
+          <div class="nav-card" onclick="navigateTo('progress')">
+            <div class="nav-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="nav-title">My Progress</div>
+            <div class="nav-subtitle">Track your learning journey</div>
+          </div>
+        </div>
+      </main>
+
+      <nav class="bottom-navigation">
+        <div class="bottom-nav-grid">
+          <a href="#" class="bottom-nav-item active">
+            <div class="bottom-nav-icon">
+              <i class="fas fa-home"></i>
+            </div>
+            <div class="bottom-nav-label">Home</div>
+          </a>
+
+          <a href="#" class="bottom-nav-item">
+            <div class="bottom-nav-icon">
+              <i class="fas fa-handshake"></i>
+              <span class="notification-badge">3</span>
+            </div>
+            <div class="bottom-nav-label">Matches</div>
+          </a>
+
+          <a href="#" class="bottom-nav-item">
+            <div class="bottom-nav-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="bottom-nav-label">Sessions</div>
+          </a>
+
+          <a href="#" class="bottom-nav-item">
+            <div class="bottom-nav-icon">
+              <i class="fas fa-comments"></i>
+              <span class="notification-badge">5</span>
+            </div>
+            <div class="bottom-nav-label">Messages</div>
+          </a>
+
+          <a href="#" class="bottom-nav-item">
+            <div class="bottom-nav-icon">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="bottom-nav-label">Profile</div>
+          </a>
+        </div>
+      </nav>
     </div>
 
     <script>
-        function navigateTo(section) {
-            // Add haptic feedback for mobile
-            if (navigator.vibrate) {
-                navigator.vibrate(50);
-            }
-
-            // Simulate navigation with visual feedback
-            const cards = document.querySelectorAll('.nav-card');
-            cards.forEach(card => {
-                card.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    card.style.transform = '';
-                }, 150);
-            });
-
-            // In a real app, this would navigate to the appropriate screen
-            console.log(`Navigating to: ${section}`);
-            
-            // Show toast notification for demo
-            showToast(`Opening ${section.charAt(0).toUpperCase() + section.slice(1)}...`);
+      function navigateTo(section) {
+        // Add haptic feedback for mobile
+        if (navigator.vibrate) {
+          navigator.vibrate(50);
         }
 
-        function showToast(message) {
-            // Create toast element
-            const toast = document.createElement('div');
-            toast.textContent = message;
-            toast.style.cssText = `
+        // Simulate navigation with visual feedback
+        const cards = document.querySelectorAll(".nav-card");
+        cards.forEach((card) => {
+          card.style.transform = "scale(0.95)";
+          setTimeout(() => {
+            card.style.transform = "";
+          }, 150);
+        });
+
+        // In a real app, this would navigate to the appropriate screen
+        console.log(`Navigating to: ${section}`);
+
+        // Show toast notification for demo
+        showToast(
+          `Opening ${section.charAt(0).toUpperCase() + section.slice(1)}...`
+        );
+      }
+
+      function showToast(message) {
+        // Create toast element
+        const toast = document.createElement("div");
+        toast.textContent = message;
+        toast.style.cssText = `
                 position: fixed;
                 bottom: 100px;
                 left: 50%;
@@ -472,58 +485,60 @@
                 transition: all 0.3s ease;
                 opacity: 0;
             `;
-            
-            document.body.appendChild(toast);
-            
-            // Animate in
-            setTimeout(() => {
-                toast.style.opacity = '1';
-                toast.style.transform = 'translateX(-50%) translateY(-10px)';
-            }, 100);
-            
-            // Remove after 2 seconds
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateX(-50%) translateY(10px)';
-                setTimeout(() => {
-                    document.body.removeChild(toast);
-                }, 300);
-            }, 2000);
-        }
 
-        // Add smooth interactions for bottom navigation
-        document.querySelectorAll('.bottom-nav-item').forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Remove active class from all items
-                document.querySelectorAll('.bottom-nav-item').forEach(i => i.classList.remove('active'));
-                
-                // Add active class to clicked item
-                this.classList.add('active');
-                
-                // Add subtle animation
-                this.style.transform = 'scale(0.9)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 150);
-            });
-        });
+        document.body.appendChild(toast);
 
-        // Add loading state simulation
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.nav-card');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                
-                setTimeout(() => {
-                    card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 100 * index);
-            });
+        // Animate in
+        setTimeout(() => {
+          toast.style.opacity = "1";
+          toast.style.transform = "translateX(-50%) translateY(-10px)";
+        }, 100);
+
+        // Remove after 2 seconds
+        setTimeout(() => {
+          toast.style.opacity = "0";
+          toast.style.transform = "translateX(-50%) translateY(10px)";
+          setTimeout(() => {
+            document.body.removeChild(toast);
+          }, 300);
+        }, 2000);
+      }
+
+      // Add smooth interactions for bottom navigation
+      document.querySelectorAll(".bottom-nav-item").forEach((item) => {
+        item.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          // Remove active class from all items
+          document
+            .querySelectorAll(".bottom-nav-item")
+            .forEach((i) => i.classList.remove("active"));
+
+          // Add active class to clicked item
+          this.classList.add("active");
+
+          // Add subtle animation
+          this.style.transform = "scale(0.9)";
+          setTimeout(() => {
+            this.style.transform = "";
+          }, 150);
         });
+      });
+
+      // Add loading state simulation
+      document.addEventListener("DOMContentLoaded", function () {
+        const cards = document.querySelectorAll(".nav-card");
+        cards.forEach((card, index) => {
+          card.style.opacity = "0";
+          card.style.transform = "translateY(20px)";
+
+          setTimeout(() => {
+            card.style.transition = "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)";
+            card.style.opacity = "1";
+            card.style.transform = "translateY(0)";
+          }, 100 * index);
+        });
+      });
     </script>
-</body>
+  </body>
 </html>
