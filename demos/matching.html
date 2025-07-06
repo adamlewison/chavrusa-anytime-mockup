@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Chavrusa-Anytime - Smart Matching</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --vh: 1vh;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 30%, #dee2e6 100%);
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 390px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            min-height: calc(var(--vh, 1vh) * 100);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding-top: env(safe-area-inset-top);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 30%, #e9ecef 100%);
+            color: #2c3e50;
+            padding: 20px 24px 18px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -15%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .back-button:active {
+            transform: scale(0.95);
+        }
+
+        .back-button i {
+            color: #667eea;
+            font-size: 18px;
+        }
+
+        .header-title {
+            text-align: center;
+            flex: 1;
+            margin: 0 16px;
+        }
+
+        .page-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 4px;
+            letter-spacing: -0.3px;
+        }
+
+        .page-subtitle {
+            font-size: 12px;
+            color: #8e9aae;
+            font-weight: 600;
+        }
+
+        .filter-button {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .filter-button i {
+            color: #667eea;
+            font-size: 18px;
+        }
+
+        .main-content {
+            padding: 16px 20px 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ai-insights {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.06) 100%);
+            border-radius: 18px;
+            padding: 16px 18px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .ai-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+
+        .ai-icon i {
+            color: white;
+            font-size: 14px;
+        }
+
+        .ai-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .ai-text {
+            font-size: 12px;
+            color: #5a6c7d;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        .matches-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .matches-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #2c3e50;
+        }
+
+        .matches-count {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .match-card {
+            background: linear-gradient(145deg, #ffffff 0%, #fafbfc 100%);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .match-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .match-card:active {
+            transform: scale(0.98);
+        }
+
+        .match-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .user-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            margin-right: 14px;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.25);
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .user-location {
+            font-size: 12px;
+            color: #8e9aae;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-location i {
+            margin-right: 4px;
+            font-size: 10px;
+        }
+
+        .user-status {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(67, 233, 123, 0.1);
+            color: #43e97b;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .user-status i {
+            margin-right: 4px;
+            font-size: 8px;
+        }
+
+        .compatibility-score {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 800;
+            box-shadow: 0 4px 15px rgba(67, 233, 123, 0.3);
+        }
+
+        .match-details {
+            margin-bottom: 16px;
+        }
+
+        .shared-interests {
+            margin-bottom: 12px;
+        }
+
+        .interests-label {
+            font-size: 11px;
+            color: #8e9aae;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .interests-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .interest-tag {
+            background: rgba(102, 126, 234, 0.08);
+            color: #667eea;
+            padding: 6px 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .compatibility-breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .compat-item {
+            display: flex;
+            align-items: center;
+            font-size: 11px;
+        }
+
+        .compat-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+            font-size: 9px;
+        }
+
+        .compat-text {
+            color: #5a6c7d;
+            font-weight: 600;
+        }
+
+        .schedule-compat {
+            background: rgba(67, 233, 123, 0.1);
+            color: #43e97b;
+        }
+
+        .level-compat {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+        }
+
+        .location-compat {
+            background: rgba(255, 107, 107, 0.1);
+            color: #ff6b6b;
+        }
+
+        .language-compat {
+            background: rgba(255, 177, 66, 0.1);
+            color: #ffb142;
+        }
+
+        .match-reason {
+            background: rgba(102, 126, 234, 0.04);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 16px;
+            border-left: 3px solid #667eea;
+        }
+
+        .reason-label {
+            font-size: 10px;
+            color: #8e9aae;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .reason-text {
+            font-size: 12px;
+            color: #5a6c7d;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        .match-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 14px;
+            border: none;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-button i {
+            margin-right: 6px;
+            font-size: 12px;
+        }
+
+        .connect-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .connect-button:active {
+            transform: scale(0.96);
+        }
+
+        .view-button {
+            background: rgba(102, 126, 234, 0.08);
+            color: #667eea;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .view-button:active {
+            transform: scale(0.96);
+            background: rgba(102, 126, 234, 0.12);
+        }
+
+        .load-more {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.8) 100%);
+            border: 2px dashed rgba(102, 126, 234, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            margin-top: 8px;
+        }
+
+        .load-more:active {
+            transform: scale(0.98);
+        }
+
+        .load-more-text {
+            color: #667eea;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .load-more-subtitle {
+            color: #8e9aae;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .match-card {
+            animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .match-card:nth-child(1) { animation-delay: 0.1s; }
+        .match-card:nth-child(2) { animation-delay: 0.2s; }
+        .match-card:nth-child(3) { animation-delay: 0.3s; }
+
+        /* Responsive Design */
+        @media (max-width: 375px) {
+            .main-content {
+                padding: 14px 16px;
+            }
+            
+            .match-card {
+                padding: 16px;
+                margin-bottom: 12px;
+            }
+            
+            .user-avatar {
+                width: 48px;
+                height: 48px;
+                font-size: 18px;
+                margin-right: 12px;
+            }
+            
+            .compatibility-breakdown {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="header-content">
+                <button class="back-button" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                
+                <div class="header-title">
+                    <div class="page-title">Smart Matches</div>
+                    <div class="page-subtitle">AI-powered chavrusa recommendations</div>
+                </div>
+                
+                <button class="filter-button" onclick="openFilters()">
+                    <i class="fas fa-sliders-h"></i>
+                </button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="ai-insights">
+                <div class="ai-header">
+                    <div class="ai-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="ai-title">AI Insights</div>
+                </div>
+                <div class="ai-text">
+                    Based on your Talmud interest and intermediate level, we've found 3 highly compatible study partners in your timezone.
+                </div>
+            </div>
+
+            <div class="matches-header">
+                <div class="matches-title">Top Matches</div>
+                <div class="matches-count">12 Found</div>
+            </div>
+
+            <div class="match-card">
+                <div class="compatibility-score">94%</div>
+                
+                <div class="match-header">
+                    <div class="user-avatar">R</div>
+                    <div class="user-info">
+                        <div class="user-name">Rabbi David Cohen</div>
+                        <div class="user-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Brooklyn, NY • EST
+                        </div>
+                        <div class="user-status">
+                            <i class="fas fa-circle"></i>
+                            Online now
+                        </div>
+                    </div>
+                </div>
+
+                <div class="match-details">
+                    <div class="shared-interests">
+                        <div class="interests-label">Shared Interests</div>
+                        <div class="interests-tags">
+                            <span class="interest-tag">Talmud Bavli</span>
+                            <span class="interest-tag">Bava Kamma</span>
+                            <span class="interest-tag">Halacha</span>
+                        </div>
+                    </div>
+
+                    <div class="compatibility-breakdown">
+                        <div class="compat-item">
+                            <div class="compat-icon schedule-compat">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="compat-text">Same timezone</div>
+                        </div>
+                        <div class="compat-item">
+                            <div class="compat-icon level-compat">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="compat-text">Advanced level</div>
+                        </div>
+                        <div class="compat-item">
+                            <div class="compat-icon language-compat">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <div class="compat-text">English + Hebrew</div>
+                        </div>
+                        <div class="compat-item">
+                            <div class="compat-icon location-compat">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="compat-text">Mentorship ready</div>
+                        </div>
+                    </div>
+
+                    <div class="match-reason">
+                        <div class="reason-label">Why this match?</div>
+                        <div class="reason-text">
+                            Rabbi Cohen specializes in Talmud and has 15+ years teaching experience. Perfect mentor for advancing your Bava Kamma studies.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="match-actions">
+                    <button class="action-button connect-button" onclick="connectMatch(1)">
+                        <i class="fas fa-handshake"></i>
+                        Send Request
+                    </button>
+                    <button class="action-button view-button" onclick="viewProfile(1)">
+                        <i class="fas fa-user"></i>
+                        View Profile
+                    </button>
+                </div>
+            </div>
+
+            <div class="match-card">
+                <div class="compatibility-score">89%</div>
+                
+                <div class="match-header">
+                    <div class="user-avatar">A</div>
+                    <div class="user-info">
+                        <div class="user-name">Avraham Goldstein</div>
+                        <div class="user-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Lakewood, NJ • EST
+                        </div>
+                        <div class="user-status">
+                            <i class="fas fa-circle"></i>
+                            Available evenings
+                        </div>
+                    </div>
+                </div>
+
+                <div class="match-details">
+                    <div class="shared-interests">
+                        <div class="interests-label">Shared Interests</div>
+                        <div class="interests-tags">
+                            <span class="interest-tag">Talmud Bavli</span>
+                            <span class="interest-tag">Shabbos</span>
+                            <span class="interest-tag">Peer Learning</span>
+                        </div>
+                    </div>
+
+                    <div class="compatibility-breakdown">
+                        <div class="compat-item">
+                            <div class="compat-icon schedule-compat">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="compat-text">6-9 PM overlap</div>
+                        </div>
+                        <div class="compat-item">
+                            <div class="compat-icon level-compat">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="compat-text">Intermediate</div>
+                        </div>
+                        <div class="compat-item">
+                            <div class="compat-icon language-compat">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <div class="compat-text">English + Yiddish</div>
+                        </div>
+                        <div class="compat-item">
+                            <div class="compat-icon location-compat">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="compat-text">Study partnership</div>
+                        </div>
+                    </div>
+
+                    <div class="match-reason">
+                        <div class="reason-label">Why this match?</div>
+                        <div class="reason-text">
+                            Same skill level and learning pace. Both studying Masechet Shabbos currently. Excellent peer learning compatibility.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="match-actions">
+                    <button class="action-button connect-button" onclick="connectMatch(2)">
+                        <i class="fas fa-handshake"></i>
+                        Send Request
+                    </button>
+                    <button class="action-button view-button" onclick="viewProfile(2)">
+                        <i class="fas fa-user"></i>
+                        View Profile
+                    </button>
+                </div>
+            </div>
+
+            <div class="match-card">
+                <div class="compatibility-score">86%</div>
+                
+                <div class="match-header">
+                    <div class="user-avatar">M</div>
+                    <div class="user-info">
+                        <div class="user-name">Mordechai Weiss</div>
+                        <div class="user-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Monsey, NY • EST
+                        </div>
+                        <div class="user-status">
+                            <i class="fas fa-circle"></i>
+                            Morning learner
+                        </div>
+                    </div>
+                </div>
+
+                <div class="match-details">
+                    <div class="shared-interests">
+                        <div class="interests-label">Shared Interests</div>
+                        <div class="interests-tags">
+                            <span class="interest-tag">Mishna</span>
+                            <span class="interest-tag">Halacha L'Maaseh</span>
+                            <span class="interest-tag">Brachot</span>
+                        </div>
+                    </div>
+
+                    <div class="compatibility-breakdown">
+                        <div class="compat-item">
+                            <div class="compat-icon schedule-compat">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="compat-text">6-8 AM overlap</div>
+                        </div>
+                        <div class="compat-item">
+                            <div class="compat-icon level-compat">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="compat-text">Intermediate</div>
+                        </div>
+                        <div class="compat-item">
+                            <div class="compat-icon language-compat">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <div class="compat-text">Hebrew + English</div>
+                        </div>
+                        <div class="compat-item">
+                            <div class="compat-icon location-compat">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="compat-text">Group study</div>
+                        </div>
+                    </div>
+
+                    <div class="match-reason">
+                        <div class="reason-label">Why this match?</div>
+                        <div class="reason-text">
+                            Active in morning learning chavrusos. Strong in practical halacha and interested in forming study groups.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="match-actions">
+                    <button class="action-button connect-button" onclick="connectMatch(3)">
+                        <i class="fas fa-handshake"></i>
+                        Send Request
+                    </button>
+                    <button class="action-button view-button" onclick="viewProfile(3)">
+                        <i class="fas fa-user"></i>
+                        View Profile
+                    </button>
+                </div>
+            </div>
+
+            <div class="load-more" onclick="loadMoreMatches()">
+                <div class="load-more-text">Load More Matches</div>
+                <div class="load-more-subtitle">9 additional compatible partners found</div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Handle viewport changes for mobile
+        function handleViewportChange() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        window.addEventListener('resize', handleViewportChange);
+        window.addEventListener('orientationchange', handleViewportChange);
+        handleViewportChange();
+
+        // Add haptic feedback for supported devices
+        function triggerHaptic() {
+            if (navigator.vibrate) {
+                navigator.vibrate(25);
+            }
+        }
+
+        function goBack() {
+            triggerHaptic();
+            showToast('Going back to dashboard...');
+        }
+
+        function openFilters() {
+            triggerHaptic();
+            showToast('Opening matching filters...');
+        }
+
+        function connectMatch(id) {
+            triggerHaptic();
+            const button = event.currentTarget;
+            
+            // Visual feedback
+            button.style.transform = 'scale(0.94)';
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            setTimeout(() => {
+                button.style.transform = '';
+                button.innerHTML = '<i class="fas fa-check"></i> Request Sent!';
+                button.style.background = 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)';
+                
+                showToast('Connection request sent successfully!');
+                
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fas fa-handshake"></i> Send Request';
+                    button.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                }, 2000);
+            }, 1500);
+        }
+
+        function viewProfile(id) {
+            triggerHaptic();
+            showToast(`Opening profile for user ${id}...`);
+        }
+
+        function loadMoreMatches() {
+            triggerHaptic();
+            showToast('Loading additional matches...');
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(0, 0, 0, 0.85);
+                color: white;
+                padding: 12px 24px;
+                border-radius: 20px;
+                font-size: 13px;
+                z-index: 1000;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                

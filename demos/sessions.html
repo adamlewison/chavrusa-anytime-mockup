@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Chavrusa-Anytime - Study Session</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --vh: 1vh;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 30%, #dee2e6 100%);
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 390px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            min-height: calc(var(--vh, 1vh) * 100);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding-top: env(safe-area-inset-top);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 30%, #e9ecef 100%);
+            color: #2c3e50;
+            padding: 20px 24px 18px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -15%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .app-logo {
+            display: flex;
+            align-items: baseline;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            flex: 1;
+        }
+
+        .app-logo:active {
+            transform: scale(0.98);
+        }
+
+        .chavrusa-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: #FA7D00;
+            letter-spacing: -0.3px;
+            margin-right: 1px;
+        }
+
+        .anytime-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1972E6;
+            letter-spacing: -0.2px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .header-button {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-button:active {
+            transform: scale(0.95);
+        }
+
+        .header-button i {
+            color: #667eea;
+            font-size: 18px;
+        }
+
+        .main-content {
+            padding: 24px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .session-info {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .session-topic {
+            font-size: 24px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .session-subtitle {
+            font-size: 14px;
+            color: #8e9aae;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .partner-info {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.06) 100%);
+            border-radius: 16px;
+            padding: 16px 20px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            display: flex;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .partner-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            margin-right: 14px;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.25);
+        }
+
+        .partner-details {
+            flex: 1;
+        }
+
+        .partner-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .partner-status {
+            font-size: 12px;
+            color: #8e9aae;
+            font-weight: 500;
+        }
+
+        .call-container {
+            margin: 48px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .call-avatar {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 25px 80px rgba(102, 126, 234, 0.4);
+            }
+        }
+
+        .call-status {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(67, 233, 123, 0.3);
+        }
+
+        .call-status i {
+            margin-right: 6px;
+            font-size: 10px;
+        }
+
+        .call-duration {
+            font-size: 32px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .call-label {
+            font-size: 14px;
+            color: #8e9aae;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .session-controls {
+            display: flex;
+            gap: 20px;
+            margin-top: 48px;
+        }
+
+        .control-btn {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .control-btn i {
+            font-size: 24px;
+        }
+
+        .mute-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            color: #2c3e50;
+            border: 2px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .mute-btn.muted {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+            color: white;
+            border: 2px solid #ff6b6b;
+        }
+
+        .end-btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+            color: white;
+        }
+
+        .speaker-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            color: #2c3e50;
+            border: 2px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .speaker-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: 2px solid #667eea;
+        }
+
+        .scheduled-info {
+            background: linear-gradient(145deg, #ffffff 0%, #fafbfc 100%);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 32px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .info-header {
+            font-size: 14px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.05) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: #667eea;
+            font-size: 12px;
+        }
+
+        .info-content {
+            flex: 1;
+        }
+
+        .info-label {
+            font-size: 11px;
+            color: #8e9aae;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .info-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 375px) {
+            .main-content {
+                padding: 20px 16px;
+            }
+            
+            .session-topic {
+                font-size: 22px;
+            }
+            
+            .call-avatar {
+                width: 120px;
+                height: 120px;
+                font-size: 48px;
+            }
+            
+            .call-duration {
+                font-size: 28px;
+            }
+            
+            .control-btn {
+                width: 56px;
+                height: 56px;
+            }
+            
+            .control-btn i {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .session-topic {
+                font-size: 20px;
+            }
+            
+            .call-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
+            }
+            
+            .session-controls {
+                gap: 16px;
+            }
+        }
+
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="header-content">
+                <div class="app-logo" onclick="goToHome()">
+                    <span class="chavrusa-text">Chavrusa</span>
+                    <span class="anytime-text">Anytime</span>
+                </div>
+                
+                <div class="header-actions">
+                    <button class="header-button" onclick="openMenu()">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="session-info">
+                <div class="session-topic">Bava Kamma - Chapter 3</div>
+                
+                <div class="partner-info">
+                    <div class="partner-avatar">R</div>
+                    <div class="partner-details">
+                        <div class="partner-name">Rabbi David Cohen</div>
+                        <div class="partner-status">Connected • Brooklyn, NY</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="call-container">
+                <div class="call-status">
+                    <i class="fas fa-circle"></i>
+                    Connected
+                </div>
+                
+                <div class="call-avatar">R</div>
+                
+                <div class="call-duration" id="duration">43:27</div>
+                <div class="call-label">Study Time</div>
+            </div>
+
+            <div class="session-controls">
+                <button class="control-btn mute-btn" onclick="toggleMute()">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <button class="control-btn end-btn" onclick="endCall()">
+                    <i class="fas fa-phone-slash"></i>
+                </button>
+                <button class="control-btn speaker-btn" onclick="toggleSpeaker()">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Handle viewport changes for mobile
+        function handleViewportChange() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        window.addEventListener('resize', handleViewportChange);
+        window.addEventListener('orientationchange', handleViewportChange);
+        handleViewportChange();
+
+        // Add haptic feedback for supported devices
+        function triggerHaptic() {
+            if (navigator.vibrate) {
+                navigator.vibrate(25);
+            }
+        }
+
+        // Session state
+        let sessionState = {
+            isMuted: false,
+            speakerOn: false,
+            duration: 2607, // 43:27 in seconds
+            isConnected: true
+        };
+
+        function goToHome() {
+            triggerHaptic();
+            showToast('Chavrusa-Anytime');
+        }
+
+        function openMenu() {
+            triggerHaptic();
+            showToast('Opening session menu...');
+        }
+
+        function toggleMute() {
+            triggerHaptic();
+            const button = event.currentTarget;
+            const icon = button.querySelector('i');
+            
+            sessionState.isMuted = !sessionState.isMuted;
+            
+            if (sessionState.isMuted) {
+                button.classList.add('muted');
+                icon.className = 'fas fa-microphone-slash';
+                showToast('Microphone muted');
+            } else {
+                button.classList.remove('muted');
+                icon.className = 'fas fa-microphone';
+                showToast('Microphone unmuted');
+            }
+        }
+
+        function toggleSpeaker() {
+            triggerHaptic();
+            const button = event.currentTarget;
+            const icon = button.querySelector('i');
+            
+            sessionState.speakerOn = !sessionState.speakerOn;
+            
+            if (sessionState.speakerOn) {
+                button.classList.add('active');
+                icon.className = 'fas fa-volume-up';
+                showToast('Speaker on');
+            } else {
+                button.classList.remove('active');
+                icon.className = 'fas fa-volume-up';
+                showToast('Speaker off');
+            }
+        }
+
+        function endCall() {
+            triggerHaptic();
+            const button = event.currentTarget;
+            
+            button.style.transform = 'scale(0.9)';
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            
+            setTimeout(() => {
+                showToast('Ending study session...');
+                
+                // Change call status
+                const status = document.querySelector('.call-status');
+                status.innerHTML = '<i class="fas fa-circle"></i> Ending...';
+                status.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
+                
+                setTimeout(() => {
+                    showToast('Session ended • Notes saved');
+                    
+                    // Simulate navigation back to dashboard
+                    setTimeout(() => {
+                        showToast('Returning to dashboard...');
+                    }, 1000);
+                }, 1500);
+            }, 500);
+        }
+
+        function updateDuration() {
+            if (sessionState.isConnected) {
+                sessionState.duration++;
+                const minutes = Math.floor(sessionState.duration / 60);
+                const seconds = sessionState.duration % 60;
+                const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                document.getElementById('duration').textContent = formattedTime;
+            }
+        }
+
+        // Update duration every second
+        setInterval(updateDuration, 1000);
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                top: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(0, 0, 0, 0.85);
+                color: white;
+                padding: 12px 24px;
+                border-radius: 20px;
+                font-size: 13px;
+                z-index: 1000;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                opacity: 0;
+                backdrop-filter: blur(10px);
+                font-weight: 500;
+                max-width: 280px;
+                text-align: center;
+            `;
+            
+            document.body.appendChild(toast);
+            
+            requestAnimationFrame(() => {
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateX(-50%) translateY(-8px)';
+            });
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(8px)';
+                setTimeout(() => {
+                    if (document.body.contains(toast)) {
+                        document.body.removeChild(toast);
+                    }
+                }, 300);
+            }, 2000);
+        }
+
+        // Enhanced touch interactions
+        document.querySelectorAll('.control-btn, .header-button').forEach(element => {
+            element.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.9)';
+            });
+            
+            element.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    if (!this.style.transform.includes('scale(0.95)')) {
+                        this.style.transform = '';
+                    }
+                }, 100);
+            });
+        });
+
+        // Initialize session
+        document.addEventListener('DOMContentLoaded', function() {
+            showToast('Connected to Rabbi David Cohen');
+            
+            // Animate elements on load
+            const elements = ['.session-info', '.call-container', '.session-controls', '.scheduled-info'];
+            elements.forEach((selector, index) => {
+                const element = document.querySelector(selector);
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    element.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, 100 + (index * 150));
+            });
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                toggleMute();
+            }
+            
+            if (e.key === 's' && e.ctrlKey) {
+                e.preventDefault();
+                toggleSpeaker();
+            }
+            
+            if (e.key === 'Escape') {
+                endCall();
+            }
+        });
+
+        // Prevent accidental page close during call
+        window.addEventListener('beforeunload', function(e) {
+            if (sessionState.isConnected) {
+                e.preventDefault();
+                e.returnValue = 'Are you sure you want to leave the study session?';
+                return 'Are you sure you want to leave the study session?';
+            }
+        });
+
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                showToast('Call continues in background');
+            } else {
+                showToast('Welcome back to your session');
+            }
+        });
+    </script>
+</body>
+</html>

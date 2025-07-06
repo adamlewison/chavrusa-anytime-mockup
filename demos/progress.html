@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Chavrusa-Anytime - My Progress</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --vh: 1vh;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 30%, #dee2e6 100%);
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 390px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            min-height: calc(var(--vh, 1vh) * 100);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding-top: env(safe-area-inset-top);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 30%, #e9ecef 100%);
+            color: #2c3e50;
+            padding: 20px 24px 18px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -15%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(67, 233, 123, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .back-button:active {
+            transform: scale(0.95);
+        }
+
+        .back-button i {
+            color: #43e97b;
+            font-size: 18px;
+        }
+
+        .header-title {
+            text-align: center;
+            flex: 1;
+            margin: 0 16px;
+        }
+
+        .page-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 4px;
+            letter-spacing: -0.3px;
+        }
+
+        .page-subtitle {
+            font-size: 12px;
+            color: #8e9aae;
+            font-weight: 600;
+        }
+
+        .menu-button {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .menu-button i {
+            color: #43e97b;
+            font-size: 18px;
+        }
+
+        .main-content {
+            padding: 16px 20px 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .streak-banner {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(67, 233, 123, 0.3);
+        }
+
+        .streak-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .streak-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .streak-info {
+            flex: 1;
+        }
+
+        .streak-number {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .streak-label {
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0.9;
+            margin-bottom: 6px;
+        }
+
+        .streak-subtitle {
+            font-size: 11px;
+            opacity: 0.8;
+            font-weight: 500;
+        }
+
+        .streak-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, #ffffff 0%, #fafbfc 100%);
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:active {
+            transform: scale(0.98);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .stat-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 14px;
+            color: white;
+        }
+
+        .stat-title {
+            font-size: 12px;
+            color: #8e9aae;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .stat-change {
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-change.positive {
+            color: #43e97b;
+        }
+
+        .stat-change.neutral {
+            color: #8e9aae;
+        }
+
+        .stat-change i {
+            margin-right: 4px;
+            font-size: 9px;
+        }
+
+        .progress-section {
+            margin-bottom: 20px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #2c3e50;
+        }
+
+        .view-all-btn {
+            background: none;
+            border: none;
+            color: #667eea;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .view-all-btn:active {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .current-goals {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .goal-card {
+            background: linear-gradient(145deg, #ffffff 0%, #fafbfc 100%);
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .goal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .goal-info {
+            flex: 1;
+        }
+
+        .goal-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .goal-topic {
+            font-size: 11px;
+            color: #8e9aae;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .goal-progress-percent {
+            font-size: 16px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .goal-progress-bar {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            height: 8px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .goal-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .goal-deadline {
+            font-size: 11px;
+            color: #8e9aae;
+            font-weight: 500;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .achievement-card {
+            background: linear-gradient(145deg, #ffffff 0%, #fafbfc 100%);
+            border-radius: 16px;
+            padding: 16px 12px;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .achievement-card.earned {
+            background: linear-gradient(135deg, rgba(67, 233, 123, 0.1) 0%, rgba(56, 249, 215, 0.05) 100%);
+            border-color: rgba(67, 233, 123, 0.2);
+        }
+
+        .achievement-card.locked {
+            opacity: 0.5;
+        }
+
+        .achievement-card:active {
+            transform: scale(0.96);
+        }
+
+        .achievement-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-size: 16px;
+            color: white;
+            position: relative;
+        }
+
+        .achievement-card.earned .achievement-icon {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            box-shadow: 0 4px 15px rgba(67, 233, 123, 0.3);
+        }
+
+        .achievement-card.locked .achievement-icon {
+            background: #e9ecef;
+            color: #8e9aae;
+        }
+
+        .achievement-title {
+            font-size: 10px;
+            font-weight: 600;
+            color: #2c3e50;
+            line-height: 1.2;
+        }
+
+        .achievement-card.locked .achievement-title {
+            color: #8e9aae;
+        }
+
+        .badge-notification {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 8px;
+            font-weight: 700;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(255, 71, 87, 0.4);
+        }
+
+        .recent-activity {
+            background: linear-gradient(145deg, #ffffff 0%, #fafbfc 100%);
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 12px;
+            color: white;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 2px;
+        }
+
+        .activity-time {
+            font-size: 11px;
+            color: #8e9aae;
+            font-weight: 500;
+        }
+
+        .activity-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        /* Color schemes for different elements */
+        .hours-icon { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .sessions-icon { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .partners-icon { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .topics-icon { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes progressFill {
+            from {
+                width: 0%;
+            }
+            to {
+                width: var(--progress-width);
+            }
+        }
+
+        .goal-card {
+            animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .goal-card:nth-child(1) { animation-delay: 0.1s; }
+        .goal-card:nth-child(2) { animation-delay: 0.2s; }
+
+        .achievement-card {
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .achievement-card:nth-child(1) { animation-delay: 0.1s; }
+        .achievement-card:nth-child(2) { animation-delay: 0.15s; }
+        .achievement-card:nth-child(3) { animation-delay: 0.2s; }
+        .achievement-card:nth-child(4) { animation-delay: 0.25s; }
+
+        /* Responsive Design */
+        @media (max-width: 375px) {
+            .main-content {
+                padding: 14px 16px;
+            }
+            
+            .streak-banner {
+                padding: 16px;
+            }
+            
+            .streak-number {
+                font-size: 28px;
+            }
+            
+            .streak-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .achievements-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+            
+            .achievement-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 14px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="header-content">
+                <button class="back-button" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                
+                <div class="header-title">
+                    <div class="page-title">My Progress</div>
+                    <div class="page-subtitle">Track your Torah learning journey</div>
+                </div>
+                
+                <button class="menu-button" onclick="openMenu()">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Current Streak Banner -->
+            <div class="streak-banner">
+                <div class="streak-content">
+                    <div class="streak-info">
+                        <div class="streak-number">12</div>
+                        <div class="streak-label">Day Streak</div>
+                        <div class="streak-subtitle">Keep it up, Shimon!</div>
+                    </div>
+                    <div class="streak-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon hours-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-title">Study Hours</div>
+                    </div>
+                    <div class="stat-value">47</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        +5 this week
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon sessions-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="stat-title">Sessions</div>
+                    </div>
+                    <div class="stat-value">23</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        +3 this week
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon partners-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-title">Partners</div>
+                    </div>
+                    <div class="stat-value">4</div>
+                    <div class="stat-change neutral">
+                        <i class="fas fa-minus"></i>
+                        Same as last week
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon topics-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-title">Topics</div>
+                    </div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        +2 new topics
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Goals Section -->
+            <div class="progress-section">
+                <div class="section-header">
+                    <div class="section-title">Current Goals</div>
+                    <button class="view-all-btn" onclick="viewAllGoals()">View All</button>
+                </div>
+                
+                <div class="current-goals">
+                    <div class="goal-card">
+                        <div class="goal-header">
+                            <div class="goal-info">
+                                <div class="goal-title">Complete Bava Kamma Chapter 3</div>
+                                <div class="goal-topic">Talmud Bavli</div>
+                            </div>
+                            <div class="goal-progress-percent">67%</div>
+                        </div>
+                        <div class="goal-progress-bar">
+                            <div class="goal-progress-fill" style="--progress-width: 67%; width: 67%;"></div>
+                        </div>
+                        <div class="goal-deadline">Target: March 15, 2025 • 8 days left</div>
+                    </div>
+
+                    <div class="goal-card">
+                        <div class="goal-header">
+                            <div class="goal-info">
+                                <div class="goal-title">Study 50 Hours This Month</div>
+                                <div class="goal-topic">Monthly Goal</div>
+                            </div>
+                            <div class="goal-progress-percent">94%</div>
+                        </div>
+                        <div class="goal-progress-bar">
+                            <div class="goal-progress-fill" style="--progress-width: 94%; width: 94%;"></div>
+                        </div>
+                        <div class="goal-deadline">47/50 hours • Almost there!</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievements Section -->
+            <div class="progress-section">
+                <div class="section-header">
+                    <div class="section-title">Achievements</div>
+                    <button class="view-all-btn" onclick="viewAllAchievements()">View All</button>
+                </div>
+                
+                <div class="achievements-grid">
+                    <div class="achievement-card earned" onclick="viewAchievement('first_week')">
+                        <div class="achievement-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="achievement-title">First Week</div>
+                    </div>
+
+                    <div class="achievement-card earned" onclick="viewAchievement('talmud_scholar')">
+                        <div class="achievement-icon">
+                            <i class="fas fa-scroll"></i>
+                            <div class="badge-notification">!</div>
+                        </div>
+                        <div class="achievement-title">Talmud Scholar</div>
+                    </div>
+
+                    <div class="achievement-card earned" onclick="viewAchievement('mentor')">
+                        <div class="achievement-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="achievement-title">Mentor</div>
+                    </div>
+
+                    <div class="achievement-card locked" onclick="viewAchievement('month_streak')">
+                        <div class="achievement-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="achievement-title">Month Streak</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="progress-section">
+                <div class="section-header">
+                    <div class="section-title">Recent Activity</div>
+                </div>
+                
+                <div class="recent-activity">
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Earned "Talmud Scholar" badge</div>
+                            <div class="activity-time">2 hours ago</div>
+                        </div>
+                        <div class="activity-value">New!</div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Completed session with Rabbi Cohen</div>
+                            <div class="activity-time">Today at 7:30 PM</div>
+                        </div>
+                        <div class="activity-value">1.5h</div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Started new topic: Brachot</div>
+                            <div class="activity-time">Yesterday at 8:00 AM</div>
+                        </div>
+                        <div class="activity-value">New</div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Connected with new chavrusa</div>
+                            <div class="activity-time">3 days ago</div>
+                        </div>
+                        <div class="activity-value">+1</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Handle viewport changes for mobile
+        function handleViewportChange() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        window.addEventListener('resize', handleViewportChange);
+        window.addEventListener('orientationchange', handleViewportChange);
+        handleViewportChange();
+
+        // Add haptic feedback for supported devices
+        function triggerHaptic() {
+            if (navigator.vibrate) {
+                navigator.vibrate(25);
+            }
+        }
+
+        function goBack() {
+            triggerHaptic();
+            showToast('Going back to dashboard...');
+        }
+
+        function openMenu() {
+            triggerHaptic();
+            showToast('Opening progress menu...');
+        }
+
+        function viewAllGoals() {
+            triggerHaptic();
+            showToast('Opening all goals...');
+        }
+
+        function viewAllAchievements() {
+            triggerHaptic();
+            showToast('Opening achievement gallery...');
+        }
+
+        function viewAchievement(achievementId) {
+            triggerHaptic();
+            
+            const achievementNames = {
+                'first_week': 'First Week Achievement',
+                'talmud_scholar': 'Talmud Scholar Badge',
+                'mentor': 'Mentor Achievement',
+                'month_streak': 'Month Streak (Locked)'
+            };
+            
+            showToast(`Viewing ${achievementNames[achievementId]}...`);
+            
+            // Special animation for new badge
+            if (achievementId === 'talmud_scholar') {
+                const badge = document.querySelector('.achievement-card .badge-notification');
+                if (badge) {
+                    badge.style.animation =

@@ -1,648 +1,1285 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no"
-    />
-    <title>Chavrusa-Anytime - Main Navigation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChavrusaAnytime: Development Proposal</title>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      :root {
-        --vh: 1vh;
-      }
-
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
 
+      a {
+        text-decoration: none;
+      }
+
+      .section-subtitle {
+        text-align: center;
+        font-size: 1.1rem;
+        color: #5a6c7d;
+        margin-bottom: 40px;
+        font-style: italic;
+      }
+
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
           sans-serif;
+        line-height: 1.6;
+        color: #2c3e50;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
-        padding: 0;
-        margin: 0;
-        overflow-x: hidden;
       }
 
-      .app-container {
-        width: 100%;
-        max-width: 390px;
+      .container {
+        max-width: 1200px;
         margin: 0 auto;
-        background: #ffffff;
-        min-height: calc(var(--vh, 1vh) * 100);
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        padding-top: env(safe-area-inset-top);
+        padding: 0 20px;
       }
 
-      .header {
-        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      /* Hero Section */
+      .hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
-        padding: 15px 16px 12px;
+        padding: 80px 0;
+        text-align: center;
         position: relative;
         overflow: hidden;
-        flex-shrink: 0;
       }
 
-      .header::before {
+      .hero::before {
         content: "";
         position: absolute;
-        top: -30%;
-        right: -15%;
-        width: 120px;
-        height: 120px;
-        background: rgba(255, 255, 255, 0.08);
+        top: -50%;
+        right: -20%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
         border-radius: 50%;
+        animation: float 8s ease-in-out infinite;
       }
 
-      .header-content {
+      .hero::after {
+        content: "";
+        position: absolute;
+        bottom: -30%;
+        left: -10%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.08) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+        animation: float 10s ease-in-out infinite reverse;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(10deg);
+        }
+      }
+
+      .hero-content {
         position: relative;
         z-index: 2;
       }
 
       .logo {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 10px;
+        font-size: 48px;
+        font-weight: 900;
+        margin-bottom: 20px;
+        letter-spacing: -2px;
       }
 
-      .logo-icon {
-        width: 32px;
-        height: 32px;
-        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-        border-radius: 8px;
+      .chavrusa-text {
+        color: #fa7d00;
+      }
+
+      .anytime-text {
+        color: #1972e6;
+      }
+
+      .hero-subtitle {
+        font-size: 24px;
+        font-weight: 300;
+        margin-bottom: 40px;
+        opacity: 0.9;
+      }
+
+      .timeline-badge {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 25px;
+        font-weight: 600;
+        display: inline-block;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      /* Main Content */
+      .main-content {
+        background: white;
+        margin-top: -40px;
+        border-radius: 40px 40px 0 0;
+        position: relative;
+        z-index: 10;
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .section {
+        padding: 80px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .section:last-child {
+        border-bottom: none;
+      }
+
+      .section-title {
+        font-size: 36px;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 60px;
+        color: #2c3e50;
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #fa7d00 0%, #1972e6 100%);
+        border-radius: 2px;
+      }
+
+      /* Executive Summary */
+      .executive-summary {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 60px 0;
+      }
+
+      .summary-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-top: 40px;
+      }
+
+      .summary-card {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .summary-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+      }
+
+      .summary-card h3 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: #667eea;
+      }
+
+      .summary-card p {
+        font-size: 16px;
+        line-height: 1.7;
+        color: #5a6c7d;
+      }
+
+      /* App Preview */
+      .app-preview {
+        background: #f8f9fa;
+      }
+
+      .preview-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+        margin-top: 60px;
+      }
+
+      .preview-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+      }
+
+      .preview-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+      }
+
+      .preview-image {
+        height: 400px;
+        background: #f8f9fa;
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 16px;
-        color: #1e3c72;
-        font-weight: bold;
+        overflow: hidden;
+        border-radius: 12px 12px 0 0;
       }
 
-      .logo-text {
-        flex: 1;
+      .preview-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background: white;
       }
 
-      .logo-title {
-        font-size: 18px;
-        font-weight: 700;
-        margin-bottom: 1px;
+      .preview-content {
+        padding: 30px;
       }
 
-      .logo-subtitle {
-        font-size: 11px;
-        opacity: 0.85;
-        font-weight: 400;
-      }
-
-      .user-greeting {
-        background: rgba(255, 255, 255, 0.12);
-        padding: 8px 12px;
-        border-radius: 8px;
-        backdrop-filter: blur(10px);
-      }
-
-      .greeting-text {
-        font-size: 12px;
-        margin-bottom: 2px;
-        opacity: 0.85;
-      }
-
-      .user-name {
-        font-size: 15px;
-        font-weight: 600;
-      }
-
-      .main-content {
-        padding: 20px 16px 16px;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .quick-stats {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        margin-bottom: 20px;
-      }
-
-      .stat-card {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        padding: 16px 12px;
-        border-radius: 12px;
-        text-align: center;
-        border: 1px solid rgba(0, 0, 0, 0.04);
-        transition: transform 0.2s ease;
-      }
-
-      .stat-card:active {
-        transform: scale(0.98);
-      }
-
-      .stat-number {
+      .preview-title {
         font-size: 20px;
         font-weight: 700;
-        color: #1e3c72;
-        margin-bottom: 2px;
+        margin-bottom: 10px;
+        color: #2c3e50;
       }
 
-      .stat-label {
-        font-size: 11px;
+      .preview-description {
+        font-size: 14px;
         color: #6c757d;
-        font-weight: 500;
+        line-height: 1.6;
       }
 
-      .navigation-grid {
+      /* Features Section */
+      .features-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        margin-bottom: 20px;
-        flex: 1;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 40px;
+        margin-top: 60px;
       }
 
-      .nav-card {
+      .feature-card {
         background: white;
-        border-radius: 16px;
-        padding: 18px 14px;
-        text-align: center;
-        transition: all 0.2s ease;
-        border: 1px solid rgba(0, 0, 0, 0.06);
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-        cursor: pointer;
+        padding: 40px;
+        border-radius: 20px;
+        border: 1px solid #f0f0f0;
+        transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
-        min-height: 110px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
       }
 
-      .nav-card:active {
-        transform: scale(0.97);
-        background: rgba(255, 255, 255, 0.95);
+      .feature-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
       }
 
-      .nav-icon {
-        width: 48px;
-        height: 48px;
-        margin: 0 auto 12px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        color: white;
-        position: relative;
+      .feature-card:hover::before {
+        transform: scaleX(1);
       }
 
-      .nav-title {
-        font-size: 14px;
-        font-weight: 600;
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature-icon {
+        font-size: 48px;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .feature-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 15px;
         color: #2c3e50;
-        margin-bottom: 4px;
-        line-height: 1.2;
       }
 
-      .nav-subtitle {
-        font-size: 10px;
-        color: #7f8c8d;
-        line-height: 1.3;
+      .feature-list {
+        list-style: none;
       }
 
-      .bottom-navigation {
-        background: #f8f9fa;
-        padding: 12px 8px;
-        padding-bottom: max(12px, env(safe-area-inset-bottom));
-        border-top: 1px solid rgba(0, 0, 0, 0.06);
-        flex-shrink: 0;
+      .feature-list li {
+        font-size: 16px;
+        margin-bottom: 12px;
+        padding-left: 30px;
+        position: relative;
+        color: #5a6c7d;
       }
 
-      .bottom-nav-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 4px;
+      .feature-list li::before {
+        content: "✨";
+        position: absolute;
+        left: 0;
+        top: 0;
       }
 
-      .bottom-nav-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 8px 4px;
-        border-radius: 10px;
-        transition: all 0.2s ease;
-        cursor: pointer;
-        text-decoration: none;
-        color: #6c757d;
+      /* Timeline */
+      .timeline {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      }
+
+      .timeline-container {
+        max-width: 800px;
+        margin: 0 auto;
         position: relative;
       }
 
-      .bottom-nav-item:active {
-        transform: scale(0.95);
+      .timeline-line {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        transform: translateX(-50%);
       }
 
-      .bottom-nav-item.active {
+      .timeline-item {
+        display: flex;
+        margin-bottom: 60px;
+        position: relative;
+      }
+
+      .timeline-item:nth-child(even) {
+        flex-direction: row-reverse;
+      }
+
+      .timeline-content {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        width: 45%;
+        position: relative;
+      }
+
+      .timeline-content::before {
+        content: "";
+        position: absolute;
+        top: 30px;
+        width: 20px;
+        height: 20px;
+        background: white;
+        border: 4px solid #667eea;
+        border-radius: 50%;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content::before {
+        right: -50px;
+      }
+
+      .timeline-item:nth-child(even) .timeline-content::before {
+        left: -50px;
+      }
+
+      .phase-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #667eea;
+        margin-bottom: 15px;
+      }
+
+      .phase-description {
+        font-size: 16px;
+        color: #5a6c7d;
+        line-height: 1.6;
+      }
+
+      /* Tech Stack */
+      .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-top: 60px;
+      }
+
+      .tech-category {
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        border: 1px solid #f0f0f0;
+        transition: all 0.3s ease;
+      }
+
+      .tech-category:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .tech-category h4 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #2c3e50;
+      }
+
+      .tech-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        font-size: 14px;
+        color: #5a6c7d;
+      }
+
+      .tech-item strong {
+        color: #667eea;
+        margin-right: 8px;
+      }
+
+      /* Value Proposition */
+      .value-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        margin-top: 60px;
+      }
+
+      .value-card {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
-      }
-
-      .bottom-nav-icon {
-        font-size: 18px;
-        margin-bottom: 4px;
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
         position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease;
       }
 
-      .bottom-nav-label {
-        font-size: 9px;
-        font-weight: 500;
-        line-height: 1;
+      .value-card:hover {
+        transform: scale(1.05);
       }
 
-      .notification-badge {
+      .value-card::before {
+        content: "";
         position: absolute;
-        top: -6px;
-        right: -6px;
-        background: #ff4757;
-        color: white;
+        top: -50%;
+        right: -50%;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
         border-radius: 50%;
-        width: 16px;
-        height: 16px;
-        font-size: 9px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 600;
-        border: 2px solid white;
       }
 
-      /* Modern iOS-style animations */
-      @keyframes slideUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+      .value-number {
+        font-size: 48px;
+        font-weight: 900;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 2;
       }
 
-      .nav-card {
-        animation: slideUp 0.4s ease forwards;
+      .value-text {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.6;
+        position: relative;
+        z-index: 2;
       }
 
-      .nav-card:nth-child(1) {
-        animation-delay: 0.05s;
+      /* CTA Section */
+      .cta {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        color: white;
+        text-align: center;
+        padding: 80px 0;
       }
-      .nav-card:nth-child(2) {
-        animation-delay: 0.1s;
+
+      .cta-title {
+        font-size: 36px;
+        font-weight: 800;
+        margin-bottom: 20px;
       }
-      .nav-card:nth-child(3) {
-        animation-delay: 0.15s;
+
+      .cta-subtitle {
+        font-size: 18px;
+        margin-bottom: 40px;
+        opacity: 0.8;
       }
-      .nav-card:nth-child(4) {
-        animation-delay: 0.2s;
+
+      .cta-button {
+        background: linear-gradient(135deg, #fa7d00 0%, #1972e6 100%);
+        color: white;
+        padding: 18px 40px;
+        border: none;
+        border-radius: 30px;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
       }
 
       /* Responsive Design */
-      @media (max-width: 375px) {
-        .header {
-          padding: 12px 14px 10px;
+      @media (max-width: 768px) {
+        .hero {
+          padding: 60px 0;
         }
 
-        .main-content {
-          padding: 16px 14px 14px;
+        .logo {
+          font-size: 36px;
         }
 
-        .nav-card {
-          padding: 14px 10px;
-          min-height: 100px;
-        }
-
-        .nav-icon {
-          width: 44px;
-          height: 44px;
-          font-size: 18px;
-          margin-bottom: 10px;
-        }
-
-        .nav-title {
-          font-size: 13px;
-        }
-
-        .nav-subtitle {
-          font-size: 9px;
-        }
-      }
-
-      @media (max-width: 320px) {
-        .quick-stats {
-          gap: 10px;
-        }
-
-        .navigation-grid {
-          gap: 10px;
-        }
-
-        .stat-card {
-          padding: 12px 8px;
-        }
-
-        .stat-number {
+        .hero-subtitle {
           font-size: 18px;
         }
+
+        .section {
+          padding: 60px 0;
+        }
+
+        .section-title {
+          font-size: 28px;
+        }
+
+        .summary-grid {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+
+        .timeline-line {
+          left: 30px;
+        }
+
+        .timeline-item {
+          flex-direction: row !important;
+        }
+
+        .timeline-content {
+          width: calc(100% - 80px);
+          margin-left: 80px;
+        }
+
+        .timeline-content::before {
+          left: -50px !important;
+        }
       }
 
-      /* High contrast for accessibility */
-      @media (prefers-contrast: high) {
-        .nav-card {
-          border: 2px solid #333;
-        }
-
-        .bottom-nav-item {
-          border: 1px solid #ccc;
-        }
+      /* Animation Classes */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
       }
 
-      /* Reduced motion for accessibility */
-      @media (prefers-reduced-motion: reduce) {
-        * {
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
-          transition-duration: 0.01ms !important;
-        }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
       }
     </style>
   </head>
   <body>
-    <div class="app-container">
-      <header class="header">
-        <div class="header-content">
-          <div class="logo">
-            <div class="logo-icon">ח</div>
-            <div class="logo-text">
-              <div class="logo-title">Chavrusa-Anytime</div>
-              <div class="logo-subtitle">Torah Learning Together</div>
-            </div>
-          </div>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="logo">
+            <span class="chavrusa-text">Chavrusa</span
+            ><span class="anytime-text">Anytime</span>
+          </h1>
+          <p class="hero-subtitle">Development Proposal</p>
+          <div class="timeline-badge">9 months total, MVP in 4 months</div>
+        </div>
+      </div>
+    </section>
 
-          <div class="user-greeting">
-            <div class="greeting-text">Shalom,</div>
-            <div class="user-name">David Goldstein</div>
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Executive Summary -->
+      <section class="executive-summary">
+        <div class="container">
+          <h2 class="section-title">Executive Summary</h2>
+          <div class="summary-grid">
+            <div class="summary-card fade-in">
+              <h3>The Vision</h3>
+              <p>
+                Expand Am Yisrael's ability to learn b'chavrusa with AI-powered
+                partner matching and an integrated Torah study environment.
+              </p>
+            </div>
+            <div class="summary-card fade-in">
+              <h3>The Opportunity</h3>
+              <p>
+                Build the world's first sophisticated chavrusa matching platform
+                that seamlessly integrates with TorahAnytime's ecosystem,
+                connecting Jews globally in meaningful Torah study partnerships.
+              </p>
+            </div>
           </div>
         </div>
-      </header>
+      </section>
 
-      <main class="main-content">
-        <div class="quick-stats">
-          <div class="stat-card">
-            <div class="stat-number">47</div>
-            <div class="stat-label">Study Hours</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number">12</div>
-            <div class="stat-label">Day Streak</div>
+      <!-- App Preview -->
+      <section class="section app-preview">
+        <div class="container">
+          <h2 class="section-title">App Preview</h2>
+          <p
+            style="
+              text-align: center;
+              font-size: 18px;
+              color: #5a6c7d;
+              margin-bottom: 20px;
+            "
+          >
+            The following mockups demonstrate the core user experience and
+            sophisticated features that set ChavrusaAnytime apart from existing
+            solutions:
+          </p>
+
+          <p class="section-subtitle">
+            Click on any mockup to see a live demo.
+          </p>
+
+          <div class="preview-grid">
+            <div class="preview-card fade-in">
+              <a href="demos/onboarding.html">
+                <div class="preview-image">
+                  <img
+                    src="screens/onboarding-screenshot.png"
+                    alt="Onboarding Screen"
+                  />
+                </div>
+                <div class="preview-content">
+                  <h3 class="preview-title">
+                    Onboarding - Smart Profile Setup
+                  </h3>
+                  <p class="preview-description">
+                    Demonstrates sophisticated matching criteria collection
+                    including skill level, topic preferences, and learning style
+                  </p>
+                </div>
+              </a>
+            </div>
+
+            <div class="preview-card fade-in">
+              <a href="demos/dashboard.html" class="">
+                <div class="preview-image">
+                  <img
+                    src="screens/dashboard-screenshot.png"
+                    alt="Dashboard Screen"
+                  />
+                </div>
+                <div class="preview-content">
+                  <h3 class="preview-title">
+                    Dashboard - Engaged Learning Hub
+                  </h3>
+                  <p class="preview-description">
+                    Shows active user engagement with 47 study hours, 12-day
+                    streak, and upcoming session with Rabbi David Cohen
+                  </p>
+                </div>
+              </a>
+            </div>
+
+            <div class="preview-card fade-in">
+              <a href="demos/progress.html">
+                <div class="preview-image">
+                  <img
+                    src="screens/progress-screenshot.png"
+                    alt="Progress Screen"
+                  />
+                </div>
+                <div class="preview-content">
+                  <h3 class="preview-title">
+                    Progress Tracking - Motivational Analytics
+                  </h3>
+                  <p class="preview-description">
+                    Displays comprehensive learning analytics with streak
+                    tracking, goal progress, and achievement system
+                  </p>
+                </div>
+              </a>
+            </div>
+
+            <div class="preview-card fade-in">
+              <a href="demos/matching.html">
+                <div class="preview-image">
+                  <img
+                    src="screens/matching-screenshot.png"
+                    alt="Matching Screen"
+                  />
+                </div>
+                <div class="preview-content">
+                  <h3 class="preview-title">
+                    AI-Powered Matching - Intelligent Partner Discovery
+                  </h3>
+                  <p class="preview-description">
+                    Shows 94% compatibility scoring with detailed match
+                    reasoning and shared interests
+                  </p>
+                </div>
+              </a>
+            </div>
+
+            <div class="preview-card fade-in">
+              <a href="demos/sessions.html">
+                <div class="preview-image">
+                  <img
+                    src="screens/session-screenshot.png"
+                    alt="Study Session Screen"
+                  />
+                </div>
+                <div class="preview-content">
+                  <h3 class="preview-title">
+                    Live Study Session - Clean Audio Experience
+                  </h3>
+                  <p class="preview-description">
+                    Simple, focused interface for distraction-free Torah
+                    learning with essential call controls
+                  </p>
+                </div>
+              </a>
+            </div>
+
+            <div class="preview-card fade-in">
+              <a href="demos/notification.html">
+                <div class="preview-image">
+                  <img
+                    src="screens/notification-screenshot.png"
+                    alt="Push Notification Screen"
+                  />
+                </div>
+                <div class="preview-content">
+                  <h3 class="preview-title">
+                    Smart Notifications - Automated Reminders
+                  </h3>
+                  <p class="preview-description">
+                    Intelligent push notifications remind users about upcoming
+                    sessions
+                  </p>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="navigation-grid">
-          <div class="nav-card" onclick="navigateTo('matches')">
-            <div
-              class="nav-icon"
-              style="
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-              "
-            >
-              <i class="fas fa-users"></i>
+      <!-- What Makes ChavrusaAnytime Special -->
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">What Makes ChavrusaAnytime Special</h2>
+          <div class="features-grid">
+            <div class="feature-card fade-in">
+              <div class="feature-icon">🧠</div>
+              <h3 class="feature-title">AI-Powered Smart Matching</h3>
+              <ul class="feature-list">
+                <li>
+                  Sophisticated Compatibility Scoring: Multi-factor
+                  compatibility scoring including skill level, schedule, topics,
+                  and learning style
+                </li>
+                <li>
+                  Mentor-Student Pairing: In addition to compatibility scoring,
+                  we can match advanced learners with beginners for meaningful
+                  growth
+                </li>
+                <li>
+                  Global Time Zone Optimization: Automatic scheduling across
+                  time zones
+                </li>
+                <li>
+                  Topic Specialization: Match partners by specific Torah
+                  subjects (Talmud, Halacha, Tanach, etc.)
+                </li>
+              </ul>
             </div>
-            <div class="nav-title">Find Chavrusa</div>
-            <div class="nav-subtitle">Discover your study partner</div>
-          </div>
 
-          <div class="nav-card" onclick="navigateTo('sessions')">
-            <div
-              class="nav-icon"
-              style="
-                background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-              "
-            >
-              <i class="fas fa-video"></i>
-              <span class="notification-badge">2</span>
+            <div class="feature-card fade-in">
+              <div class="feature-icon">📚</div>
+              <h3 class="feature-title">Integrated Learning Environment</h3>
+              <ul class="feature-list">
+                <li>
+                  Audio-First Design: Clean, distraction-free study sessions
+                  focused on conversation
+                </li>
+                <li>
+                  Smart Scheduling: Automated optimal time finding with calendar
+                  integration
+                </li>
+                <li>
+                  Session Management: Recording, progress tracking, and
+                  automated reminders
+                </li>
+              </ul>
             </div>
-            <div class="nav-title">Study Sessions</div>
-            <div class="nav-subtitle">Join Torah learning</div>
-          </div>
 
-          <div class="nav-card" onclick="navigateTo('learning')">
-            <div
-              class="nav-icon"
-              style="
-                background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-              "
-            >
-              <i class="fas fa-book-open"></i>
+            <div class="feature-card fade-in">
+              <div class="feature-icon">📱</div>
+              <h3 class="feature-title">Modern Mobile Experience</h3>
+              <ul class="feature-list">
+                <li>
+                  Native iOS/Android Apps: Professional, intuitive interface
+                  that feels premium
+                </li>
+                <li>
+                  Real-time Connectivity: Crystal-clear audio calls with
+                  connection monitoring
+                </li>
+              </ul>
             </div>
-            <div class="nav-title">Torah Library</div>
-            <div class="nav-subtitle">Explore texts & topics</div>
-          </div>
-
-          <div class="nav-card" onclick="navigateTo('progress')">
-            <div
-              class="nav-icon"
-              style="
-                background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-              "
-            >
-              <i class="fas fa-chart-line"></i>
-            </div>
-            <div class="nav-title">My Progress</div>
-            <div class="nav-subtitle">Track learning journey</div>
           </div>
         </div>
-      </main>
+      </section>
 
-      <nav class="bottom-navigation">
-        <div class="bottom-nav-grid">
-          <a href="#" class="bottom-nav-item active">
-            <div class="bottom-nav-icon">
-              <i class="fas fa-home"></i>
-            </div>
-            <div class="bottom-nav-label">Home</div>
-          </a>
+      <!-- Development Timeline -->
+      <section class="section timeline">
+        <div class="container">
+          <h2 class="section-title">Development Timeline</h2>
+          <div class="timeline-container">
+            <div class="timeline-line"></div>
 
-          <a href="#" class="bottom-nav-item">
-            <div class="bottom-nav-icon">
-              <i class="fas fa-handshake"></i>
-              <span class="notification-badge">3</span>
+            <div class="timeline-item fade-in">
+              <div class="timeline-content">
+                <h3 class="phase-title">Phase 1: MVP (Months 1-3)</h3>
+                <div class="phase-description">
+                  <strong>Essential Features for Launch:</strong><br />
+                  • User registration and detailed profile setup<br />
+                  • Basic AI matching algorithm with compatibility scoring<br />
+                  • Audio calling with session management<br />
+                  • Simple scheduling system<br />
+                  • TorahAnytime account integration
+                </div>
+              </div>
             </div>
-            <div class="bottom-nav-label">Matches</div>
-          </a>
 
-          <a href="#" class="bottom-nav-item">
-            <div class="bottom-nav-icon">
-              <i class="fas fa-calendar-alt"></i>
+            <div class="timeline-item fade-in">
+              <div class="timeline-content">
+                <h3 class="phase-title">
+                  Phase 2: Enhanced Platform (Months 4-6)
+                </h3>
+                <div class="phase-description">
+                  <strong>Advanced Features:</strong><br />
+                  • Sophisticated matching algorithm improvements<br />
+                  • Calendar integrations (Google, Outlook, Apple)<br />
+                  • Progress tracking and learning analytics<br />
+                  • Advanced scheduling features
+                </div>
+              </div>
             </div>
-            <div class="bottom-nav-label">Sessions</div>
-          </a>
 
-          <a href="#" class="bottom-nav-item">
-            <div class="bottom-nav-icon">
-              <i class="fas fa-comments"></i>
-              <span class="notification-badge">5</span>
+            <div class="timeline-item fade-in">
+              <div class="timeline-content">
+                <h3 class="phase-title">
+                  Phase 3: Cross-platform mobile app (Months 6-8)
+                </h3>
+                <div class="phase-description">
+                  <strong>Mobile app development:</strong><br />
+                  • Native iOS/Android apps<br />
+                  • Offline capability
+                </div>
+              </div>
             </div>
-            <div class="bottom-nav-label">Messages</div>
-          </a>
 
-          <a href="#" class="bottom-nav-item">
-            <div class="bottom-nav-icon">
-              <i class="fas fa-user"></i>
+            <div class="timeline-item fade-in">
+              <div class="timeline-content">
+                <h3 class="phase-title">
+                  Phase 4: Polish and release (Month 9)
+                </h3>
+                <div class="phase-description">
+                  <strong>Polish and release:</strong><br />
+                  • Final testing and quality assurance<br />
+                  • Performance optimization at scale<br />
+                  • Security and reliability improvements
+                </div>
+              </div>
             </div>
-            <div class="bottom-nav-label">Profile</div>
-          </a>
+          </div>
         </div>
-      </nav>
+      </section>
+
+      <!-- Technology Stack -->
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Technology Stack</h2>
+          <div class="tech-grid">
+            <div class="tech-category fade-in">
+              <h4>Web Application</h4>
+              <div class="tech-item">
+                <strong>Next.js:</strong> Modern web development framework
+              </div>
+              <div class="tech-item">
+                <strong>Tailwind CSS:</strong> Responsive design and styling
+              </div>
+            </div>
+
+            <div class="tech-category fade-in">
+              <h4>Mobile Applications</h4>
+              <div class="tech-item">
+                <strong>React Native:</strong> Cross-platform iOS/Android
+                development
+              </div>
+              <div class="tech-item">
+                <strong>Expo Framework:</strong> Faster development and
+                deployment cycles
+              </div>
+            </div>
+
+            <div class="tech-category fade-in">
+              <h4>Cloud Infrastructure</h4>
+              <div class="tech-item">
+                <strong>Vercel:</strong> Global edge network and serverless
+                functions
+              </div>
+              <div class="tech-item">
+                <strong>Railway:</strong> Auto-scaling backend API hosting
+              </div>
+              <div class="tech-item">
+                <strong>GitHub Actions:</strong> Automated CI/CD deployment
+                pipeline
+              </div>
+            </div>
+
+            <div class="tech-category fade-in">
+              <h4>Real-time Communication</h4>
+              <div class="tech-item">
+                <strong>WebRTC:</strong> Direct peer-to-peer audio calling for
+                optimal quality
+              </div>
+              <div class="tech-item">
+                <strong>Twilio Voice API:</strong> Enterprise-grade fallback
+                calling system
+              </div>
+            </div>
+
+            <div class="tech-category fade-in">
+              <h4>Authentication & Security</h4>
+              <div class="tech-item">
+                <strong>Auth0:</strong> Secure authentication
+              </div>
+              <div class="tech-item">
+                <strong>TorahAnytime SSO:</strong> Seamless integration with
+                existing accounts
+              </div>
+            </div>
+
+            <div class="tech-category fade-in">
+              <h4>Development & Monitoring</h4>
+              <div class="tech-item">
+                <strong>Prisma ORM:</strong> Type-safe database queries and
+                migrations
+              </div>
+              <div class="tech-item">
+                <strong>Sentry:</strong> Real-time error tracking and
+                performance monitoring
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why This Will Succeed -->
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Why This Will Succeed</h2>
+          <div class="features-grid">
+            <div class="feature-card fade-in">
+              <div class="feature-icon">🏗️</div>
+              <h3 class="feature-title">Built on TorahAnytime's Foundation</h3>
+              <ul class="feature-list">
+                <li>Proven User Base: Leverage 1+ million existing users</li>
+                <li>
+                  Established Trust: TorahAnytime's reputation in Torah
+                  education
+                </li>
+              </ul>
+            </div>
+
+            <div class="feature-card fade-in">
+              <div class="feature-icon">📈</div>
+              <h3 class="feature-title">Market Opportunity</h3>
+              <ul class="feature-list">
+                <li>
+                  Unique Position: No competitor offers this level of
+                  sophistication
+                </li>
+                <li>Scalable Model: Can expand beyond initial user base</li>
+              </ul>
+            </div>
+
+            <div class="feature-card fade-in">
+              <div class="feature-icon">💡</div>
+              <h3 class="feature-title">Technical Innovation</h3>
+              <ul class="feature-list">
+                <li>AI-Powered Matching: Far beyond simple profile matching</li>
+                <li>
+                  Mobile-First Design: Modern user experience expectations
+                </li>
+                <li>Global Infrastructure: Built to scale worldwide</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Unique Value Proposition -->
+      <section class="section" style="background: #f8f9fa">
+        <div class="container">
+          <h2 class="section-title">Unique Value Proposition</h2>
+          <div class="value-grid">
+            <div class="value-card fade-in">
+              <div class="value-number">1</div>
+              <div class="value-text">
+                Only platform combining AI matching with Torah content
+                integration
+              </div>
+            </div>
+            <div class="value-card fade-in">
+              <div class="value-number">2</div>
+              <div class="value-text">
+                Only solution offering mobile-first modern user experience
+              </div>
+            </div>
+            <div class="value-card fade-in">
+              <div class="value-number">3</div>
+              <div class="value-text">
+                Only system with real-time scheduling and automated reminders
+              </div>
+            </div>
+            <div class="value-card fade-in">
+              <div class="value-number">4</div>
+              <div class="value-text">
+                Only platform built specifically for TorahAnytime's ecosystem
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Call to Action -->
+      <section class="cta">
+        <div class="container">
+          <h2 class="cta-title">
+            Let's build the future of Torah learning together.
+          </h2>
+          <p class="cta-subtitle">
+            TorahAnytime has been a game changer for Torah education, but it is
+            time to take it to the next level.
+          </p>
+          <a href="#contact" class="cta-button">Start the Journey</a>
+        </div>
+      </section>
     </div>
 
     <script>
-      // Handle viewport changes for mobile
-      function handleViewportChange() {
-        const vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty("--vh", `${vh}px`);
+      // Smooth scrolling animation
+      function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+          rect.top >= 0 &&
+          rect.left >= 0 &&
+          rect.bottom <=
+            (window.innerHeight || document.documentElement.clientHeight) &&
+          rect.right <=
+            (window.innerWidth || document.documentElement.clientWidth)
+        );
       }
 
-      window.addEventListener("resize", handleViewportChange);
-      window.addEventListener("orientationchange", handleViewportChange);
-      handleViewportChange();
-
-      // Add haptic feedback for supported devices
-      function triggerHaptic() {
-        if (navigator.vibrate) {
-          navigator.vibrate(25);
-        }
+      function isElementPartiallyInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return rect.top < window.innerHeight && rect.bottom >= 0;
       }
 
-      // Enhanced navigation with better mobile UX
-      function navigateTo(section) {
-        triggerHaptic();
-
-        // Visual feedback
-        const activeCard = event.currentTarget;
-        activeCard.style.transform = "scale(0.94)";
-
-        setTimeout(() => {
-          activeCard.style.transform = "";
-          showToast(
-            `Opening ${section.charAt(0).toUpperCase() + section.slice(1)}...`
-          );
-        }, 150);
-      }
-
-      function showToast(message) {
-        const toast = document.createElement("div");
-        toast.textContent = message;
-        toast.style.cssText = `
-                position: fixed;
-                bottom: 120px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: rgba(0, 0, 0, 0.85);
-                color: white;
-                padding: 10px 20px;
-                border-radius: 20px;
-                font-size: 13px;
-                z-index: 1000;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                opacity: 0;
-                backdrop-filter: blur(10px);
-                font-weight: 500;
-            `;
-
-        document.body.appendChild(toast);
-
-        requestAnimationFrame(() => {
-          toast.style.opacity = "1";
-          toast.style.transform = "translateX(-50%) translateY(-8px)";
+      function handleScrollAnimations() {
+        const elements = document.querySelectorAll(".fade-in");
+        elements.forEach((el) => {
+          if (isElementPartiallyInViewport(el)) {
+            el.classList.add("visible");
+          }
         });
-
-        setTimeout(() => {
-          toast.style.opacity = "0";
-          toast.style.transform = "translateX(-50%) translateY(8px)";
-          setTimeout(() => {
-            if (document.body.contains(toast)) {
-              document.body.removeChild(toast);
-            }
-          }, 300);
-        }, 2000);
       }
 
-      // Enhanced bottom navigation
-      document.querySelectorAll(".bottom-nav-item").forEach((item) => {
-        item.addEventListener("click", function (e) {
+      // Initialize animations
+      window.addEventListener("load", handleScrollAnimations);
+      window.addEventListener("scroll", handleScrollAnimations);
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
           e.preventDefault();
-          triggerHaptic();
-
-          document
-            .querySelectorAll(".bottom-nav-item")
-            .forEach((i) => i.classList.remove("active"));
-          this.classList.add("active");
-
-          this.style.transform = "scale(0.9)";
-          setTimeout(() => {
-            this.style.transform = "";
-          }, 120);
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
         });
       });
 
-      // Improved touch interactions for mobile
+      // Add some interactive hover effects
       document
-        .querySelectorAll(".nav-card, .bottom-nav-item")
-        .forEach((element) => {
-          element.addEventListener("touchstart", function () {
-            this.style.transform = "scale(0.96)";
+        .querySelectorAll(".feature-card, .summary-card, .preview-card")
+        .forEach((card) => {
+          card.addEventListener("mouseenter", function () {
+            this.style.transform = "translateY(-10px) scale(1.02)";
           });
 
-          element.addEventListener("touchend", function () {
-            setTimeout(() => {
-              this.style.transform = "";
-            }, 100);
+          card.addEventListener("mouseleave", function () {
+            this.style.transform = "";
           });
         });
 
-      // Add loading state simulation
-      document.addEventListener("DOMContentLoaded", function () {
-        const cards = document.querySelectorAll(".nav-card");
-        cards.forEach((card, index) => {
-          card.style.opacity = "0";
-          card.style.transform = "translateY(15px)";
+      // Add parallax effect to hero section
+      window.addEventListener("scroll", function () {
+        const scrolled = window.pageYOffset;
+        const hero = document.querySelector(".hero");
+        if (hero) {
+          hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+      });
 
+      // Add typing effect to hero title (optional)
+      function typeWriter(element, text, speed = 100) {
+        let i = 0;
+        element.innerHTML = "";
+
+        function type() {
+          if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+          }
+        }
+
+        type();
+      }
+
+      // Initialize typing effect on page load
+      window.addEventListener("load", function () {
+        const logoElement = document.querySelector(".logo");
+        if (logoElement) {
+          const originalText = logoElement.innerHTML;
           setTimeout(() => {
-            card.style.transition = "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
-            card.style.opacity = "1";
-            card.style.transform = "translateY(0)";
-          }, 50 * index);
+            // Optional: uncomment to add typing effect
+            // typeWriter(logoElement, originalText, 50);
+          }, 500);
+        }
+      });
+
+      // Add progress bar for timeline
+      window.addEventListener("scroll", function () {
+        const timelineSection = document.querySelector(".timeline");
+        if (timelineSection) {
+          const rect = timelineSection.getBoundingClientRect();
+          const sectionHeight = timelineSection.offsetHeight;
+          const windowHeight = window.innerHeight;
+
+          if (rect.top < windowHeight && rect.bottom > 0) {
+            const scrollProgress = Math.max(
+              0,
+              Math.min(
+                1,
+                (windowHeight - rect.top) / (sectionHeight + windowHeight)
+              )
+            );
+            const timelineLine = document.querySelector(".timeline-line");
+            if (timelineLine) {
+              timelineLine.style.transform = `translateX(-50%) scaleY(${scrollProgress})`;
+              timelineLine.style.transformOrigin = "top";
+            }
+          }
+        }
+      });
+
+      // Add floating animation to hero background elements
+      function animateFloatingElements() {
+        const heroElements = document.querySelectorAll(
+          ".hero::before, .hero::after"
+        );
+        // This would be handled by CSS animations, but we can add more complex JS animations here if needed
+      }
+
+      // Add mobile menu toggle (if needed for responsive design)
+      function toggleMobileMenu() {
+        // Implementation for mobile menu if navigation is added
+      }
+
+      // Print functionality
+      function printProposal() {
+        window.print();
+      }
+
+      // Add keyboard navigation
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowDown") {
+          window.scrollBy(0, 100);
+        } else if (e.key === "ArrowUp") {
+          window.scrollBy(0, -100);
+        }
+      });
+
+      // Add click-to-expand for feature cards (optional)
+      document.querySelectorAll(".feature-card").forEach((card) => {
+        card.addEventListener("click", function () {
+          // Optional: add expand/collapse functionality
+          this.classList.toggle("expanded");
         });
       });
 
-      // Handle online/offline status
-      window.addEventListener("online", () => {
-        showToast("Connection restored");
-      });
+      // Performance optimization: debounce scroll events
+      function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+          const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+          };
+          clearTimeout(timeout);
+          timeout = setTimeout(later, wait);
+        };
+      }
 
-      window.addEventListener("offline", () => {
-        showToast("Offline mode active");
-      });
+      // Apply debouncing to scroll handlers
+      const debouncedScrollHandler = debounce(function () {
+        handleScrollAnimations();
+      }, 10);
+
+      window.addEventListener("scroll", debouncedScrollHandler);
     </script>
   </body>
 </html>

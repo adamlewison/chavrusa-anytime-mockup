@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Chavrusa-Anytime - Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --vh: 1vh;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 30%, #dee2e6 100%);
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 390px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            min-height: calc(var(--vh, 1vh) * 100);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding-top: env(safe-area-inset-top);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 30%, #e9ecef 100%);
+            color: #2c3e50;
+            padding: 20px 24px 18px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -15%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -25%;
+            left: -8%;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(118, 75, 162, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .app-logo {
+            display: flex;
+            align-items: baseline;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            flex: 1;
+        }
+
+        .app-logo:active {
+            transform: scale(0.98);
+        }
+
+        .chavrusa-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: #FA7D00;
+            letter-spacing: -0.3px;
+            margin-right: 1px;
+        }
+
+        .anytime-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1972E6;
+            letter-spacing: -0.2px;
+        }
+
+        .user-profile {
+            display: none;
+        }
+
+        .profile-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            margin-right: 12px;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.25);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .profile-avatar:active {
+            transform: scale(0.95);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .greeting-text {
+            font-size: 12px;
+            color: #8e9aae;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .user-name {
+            font-size: 18px;
+            font-weight: 800;
+            color: #2c3e50;
+            letter-spacing: -0.3px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .header-button {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .header-button:active {
+            transform: scale(0.95);
+        }
+
+        .header-button i {
+            color: #667eea;
+            font-size: 18px;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(255, 71, 87, 0.4);
+        }
+
+        .main-content {
+            padding: 16px 20px 100px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quick-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 16px 14px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+        }
+
+        .stat-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #6c757d;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .upcoming-section {
+            margin-bottom: 20px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #2c3e50;
+        }
+
+        .view-all-btn {
+            background: none;
+            border: none;
+            color: #667eea;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .view-all-btn:active {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .session-card {
+            background: linear-gradient(145deg, #ffffff 0%, #fafbfc 100%);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .session-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .session-card:active {
+            transform: scale(0.98);
+        }
+
+        .session-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .session-info {
+            flex: 1;
+        }
+
+        .session-topic {
+            font-size: 14px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .session-partner {
+            font-size: 12px;
+            color: #8e9aae;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+        }
+
+        .session-partner i {
+            margin-right: 6px;
+            font-size: 10px;
+        }
+
+        .session-time {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .session-time i {
+            margin-right: 4px;
+            font-size: 9px;
+        }
+
+        .session-status {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+            min-width: 70px;
+            box-shadow: 0 4px 15px rgba(67, 233, 123, 0.3);
+        }
+
+        .session-status.soon {
+            background: linear-gradient(135deg, #ff9f43 0%, #ff6b6b 100%);
+            box-shadow: 0 4px 15px rgba(255, 159, 67, 0.3);
+        }
+
+        .session-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .session-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .session-btn i {
+            margin-right: 4px;
+            font-size: 11px;
+        }
+
+        .join-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .join-btn:active {
+            transform: scale(0.96);
+        }
+
+        .reschedule-btn {
+            background: rgba(102, 126, 234, 0.08);
+            color: #667eea;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .reschedule-btn:active {
+            transform: scale(0.96);
+            background: rgba(102, 126, 234, 0.12);
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .action-card {
+            background: linear-gradient(145deg, #ffffff 0%, #fafbfc 100%);
+            border-radius: 16px;
+            padding: 16px 12px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.5), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .action-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .action-card:active {
+            transform: scale(0.96);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .action-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 12px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+            transition: transform 0.3s ease;
+        }
+
+        .action-card:hover .action-icon {
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        .action-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 4px;
+            line-height: 1.2;
+            letter-spacing: -0.2px;
+        }
+
+        .action-subtitle {
+            font-size: 10px;
+            color: #8e9aae;
+            line-height: 1.3;
+            font-weight: 500;
+        }
+
+        .recent-activity {
+            background: linear-gradient(145deg, #ffffff 0%, #fafbfc 100%);
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 12px;
+            color: white;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 2px;
+        }
+
+        .activity-time {
+            font-size: 11px;
+            color: #8e9aae;
+            font-weight: 500;
+        }
+
+        .activity-value {
+            font-size: 12px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .floating-action {
+            position: fixed;
+            bottom: 110px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .floating-action:active {
+            transform: scale(0.95);
+        }
+
+        .floating-action i {
+            color: white;
+            font-size: 20px;
+        }
+
+        .bottom-navigation {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 12px 12px;
+            padding-bottom: max(12px, env(safe-area-inset-bottom));
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 390px;
+            box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.04);
+            z-index: 1000;
+        }
+
+        .bottom-nav-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 4px;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-decoration: none;
+            color: #8e9aae;
+            position: relative;
+        }
+
+        .bottom-nav-item:active {
+            transform: scale(0.94);
+        }
+
+        .bottom-nav-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+        }
+
+        .bottom-nav-item:not(.active):hover {
+            background: rgba(102, 126, 234, 0.08);
+            color: #667eea;
+        }
+
+        .bottom-nav-icon {
+            font-size: 17px;
+            margin-bottom: 4px;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .bottom-nav-item.active .bottom-nav-icon {
+            transform: translateY(-1px);
+        }
+
+        .bottom-nav-label {
+            font-size: 9px;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: 0.2px;
+        }
+
+        /* Modern iOS-style animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .session-card {
+            animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .session-card:nth-child(1) { animation-delay: 0.1s; }
+        .session-card:nth-child(2) { animation-delay: 0.15s; }
+
+        .action-card {
+            animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .action-card:nth-child(1) { animation-delay: 0.2s; }
+        .action-card:nth-child(2) { animation-delay: 0.25s; }
+
+        /* Enhanced hover effects */
+        @media (hover: hover) {
+            .session-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            }
+            
+            .action-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            }
+            
+            .stat-card:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 375px) {
+            .header {
+                padding: 18px 16px 16px;
+            }
+            
+            .main-content {
+                padding: 14px 16px 14px;
+            }
+            
+            .session-card {
+                padding: 16px;
+            }
+            
+            .action-card {
+                padding: 14px 10px;
+            }
+            
+            .action-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+            
+            .floating-action {
+                right: 16px;
+                bottom: 85px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .header {
+                padding: 16px 14px 14px;
+            }
+            
+            .quick-stats {
+                gap: 8px;
+            }
+            
+            .quick-actions {
+                gap: 8px;
+            }
+            
+            .stat-card {
+                padding: 12px 10px;
+            }
+            
+            .stat-number {
+                font-size: 20px;
+            }
+        }
+
+        /* High contrast for accessibility */
+        @media (prefers-contrast: high) {
+            .session-card {
+                border: 2px solid #333;
+            }
+            
+            .bottom-nav-item {
+                border: 1px solid #ccc;
+            }
+        }
+        
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="header-content">
+                <div class="app-logo" onclick="goToHome()">
+                    <span class="chavrusa-text">Chavrusa</span>
+                    <span class="anytime-text">Anytime</span>
+                </div>
+                
+                <div class="header-actions">
+                    <button class="header-button" onclick="openNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="header-button" onclick="openCalendar()">
+                        <i class="fas fa-calendar-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="quick-stats">
+                <div class="stat-card" onclick="viewProgress()">
+                    <div class="stat-number">47</div>
+                    <div class="stat-label">Study Hours</div>
+                </div>
+                <div class="stat-card" onclick="viewStreak()">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Day Streak</div>
+                </div>
+            </div>
+
+            <div class="upcoming-section">
+                <div class="section-header">
+                    <div class="section-title">Today's Sessions</div>
+                    <button class="view-all-btn" onclick="viewAllSessions()">View All</button>
+                </div>
+
+                <div class="session-card" onclick="viewSession(1)">
+                    <div class="session-header">
+                        <div class="session-info">
+                            <div class="session-topic">Bava Kamma - Chapter 3</div>
+                            <div class="session-partner">
+                                <i class="fas fa-user"></i>
+                                with Rabbi David Cohen
+                            </div>
+                            <div class="session-time">
+                                <i class="fas fa-clock"></i>
+                                8:00 PM - 9:30 PM
+                            </div>
+                        </div>
+                        <div class="session-status soon">In 45 min</div>
+                    </div>
+                    <div class="session-actions">
+                        <button class="session-btn join-btn" onclick="joinSession(1)">
+                            <i class="fas fa-video"></i>
+                            Join Now
+                        </button>
+                        <button class="session-btn reschedule-btn" onclick="rescheduleSession(1)">
+                            <i class="fas fa-clock"></i>
+                            Reschedule
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <div class="action-card" onclick="findChavrusa()">
+                    <div class="action-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="action-title">Find Chavrusa</div>
+                    <div class="action-subtitle">Discover new study partners</div>
+                </div>
+
+                <div class="action-card" onclick="browseTopics()">
+                    <div class="action-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="action-title">Browse Topics</div>
+                    <div class="action-subtitle">Explore Torah subjects</div>
+                </div>
+            </div>
+
+            <div class="upcoming-section">
+                <div class="section-header">
+                    <div class="section-title">Recent Activity</div>
+                </div>
+                
+                <div class="recent-activity">
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Earned Talmud Scholar badge</div>
+                            <div class="activity-time">2 hours ago</div>
+                        </div>
+                        <div class="activity-value">New!</div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Completed session with Rabbi Cohen</div>
+                            <div class="activity-time">Today at 7:30 PM</div>
+                        </div>
+                        <div class="activity-value">1.5h</div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">New chavrusa match found</div>
+                            <div class="activity-time">Yesterday</div>
+                        </div>
+                        <div class="activity-value">94%</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <button class="floating-action" onclick="quickSchedule()">
+            <i class="fas fa-plus"></i>
+        </button>
+
+        <nav class="bottom-navigation">
+            <div class="bottom-nav-grid">
+                <a href="#" class="bottom-nav-item active">
+                    <div class="bottom-nav-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="bottom-nav-label">Home</div>
+                </a>
+                
+                <a href="#" class="bottom-nav-item" onclick="openMatches()">
+                    <div class="bottom-nav-icon">
+                        <i class="fas fa-handshake"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="bottom-nav-label">Matches</div>
+                </a>
+                
+                <a href="#" class="bottom-nav-item" onclick="openSessions()">
+                    <div class="bottom-nav-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="bottom-nav-label">Sessions</div>
+                </a>
+                
+                <a href="#" class="bottom-nav-item" onclick="openMessages()">
+                    <div class="bottom-nav-icon">
+                        <i class="fas fa-comments"></i>
+                        <span class="notification-badge">5</span>
+                    </div>
+                    <div class="bottom-nav-label">Messages</div>
+                </a>
+                
+                <a href="#" class="bottom-nav-item" onclick="openProfile()">
+                    <div class="bottom-nav-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="bottom-nav-label">Profile</div>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        // Handle viewport changes for mobile
+        function handleViewportChange() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        window.addEventListener('resize', handleViewportChange);
+        window.addEventListener('orientationchange', handleViewportChange);
+        handleViewportChange();
+
+        // Add haptic feedback for supported devices
+        function triggerHaptic() {
+            if (navigator.vibrate) {
+                navigator.vibrate(25);
+            }
+        }
+
+        // Header actions
+        function goToHome() {
+            triggerHaptic();
+            showToast('Welcome to Chavrusa-Anytime!');
+        }
+
+        function openProfile() {
+            triggerHaptic();
+            showToast('Opening your profile...');
+        }
+
+        function openNotifications() {
+            triggerHaptic();
+            showToast('You have 3 new notifications');
+        }
+
+        function openCalendar() {
+            triggerHaptic();
+            showToast('Opening calendar view...');
+        }
+
+        // Stats actions
+        function viewProgress() {
+            triggerHaptic();
+            showToast('Viewing detailed progress...');
+        }
+
+        function viewStreak() {
+            triggerHaptic();
+            showToast('12-day streak! Keep it up!');
+        }
+
+        // Session actions
+        function viewAllSessions() {
+            triggerHaptic();
+            showToast('Opening all sessions...');
+        }
+
+        function viewSession(id) {
+            triggerHaptic();
+            showToast(`Opening session ${id} details...`);
+        }
+
+        function joinSession(id) {
+            triggerHaptic();
+            const button = event.currentTarget;
+            
+            // Prevent event bubbling
+            event.stopPropagation();
+            
+            // Visual feedback
+            button.style.transform = 'scale(0.94)';
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
+            
+            setTimeout(() => {
+                button.style.transform = '';
+                if (id === 1) {
+                    button.innerHTML = '<i class="fas fa-video"></i> Joining...';
+                    showToast('Connecting to video session...');
+                    
+                    setTimeout(() => {
+                        button.innerHTML = '<i class="fas fa-video"></i> In Session';
+                        button.style.background = 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)';
+                        showToast('Connected! Session starting...');
+                    }, 2000);
+                } else {
+                    button.innerHTML = '<i class="fas fa-users"></i> View Group';
+                    showToast('Opening study group...');
+                }
+            }, 1000);
+        }
+
+        function rescheduleSession(id) {
+            triggerHaptic();
+            event.stopPropagation();
+            showToast('Opening reschedule options...');
+        }
+
+        function prepareSession(id) {
+            triggerHaptic();
+            event.stopPropagation();
+            showToast('Opening preparation materials...');
+        }
+
+        // Quick actions
+        function findChavrusa() {
+            triggerHaptic();
+            showToast('Opening smart matching...');
+        }
+
+        function browseTopics() {
+            triggerHaptic();
+            showToast('Opening Torah library...');
+        }
+
+        function quickSchedule() {
+            triggerHaptic();
+            showToast('Quick schedule options...');
+        }
+
+        // Bottom navigation
+        function openMatches() {
+            triggerHaptic();
+            updateBottomNav(event.currentTarget);
+            showToast('You have 3 new match requests');
+        }
+
+        function openSessions() {
+            triggerHaptic();
+            updateBottomNav(event.currentTarget);
+            showToast('Opening sessions calendar...');
+        }
+
+        function openMessages() {
+            triggerHaptic();
+            updateBottomNav(event.currentTarget);
+            showToast('You have 5 unread messages');
+        }
+
+        function updateBottomNav(selectedItem) {
+            document.querySelectorAll('.bottom-nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            selectedItem.classList.add('active');
+        }
+
+        // Enhanced bottom navigation
+        document.querySelectorAll('.bottom-nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (!this.onclick) {
+                    e.preventDefault();
+                    triggerHaptic();
+                    
+                    this.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 120);
+                }
+            });
+        });
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 120px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(0, 0, 0, 0.85);
+                color: white;
+                padding: 12px 24px;
+                border-radius: 20px;
+                font-size: 13px;
+                z-index: 1000;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                opacity: 0;
+                backdrop-filter: blur(10px);
+                font-weight: 500;
+                max-width: 300px;
+                text-align: center;
+            `;
+            
+            document.body.appendChild(toast);
+            
+            requestAnimationFrame(() => {
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateX(-50%) translateY(-8px)';
+            });
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(8px)';
+                setTimeout(() => {
+                    if (document.body.contains(toast)) {
+                        document.body.removeChild(toast);
+                    }
+                }, 300);
+            }, 2500);
+        }
+
+        // Enhanced touch interactions for mobile
+        document.querySelectorAll('.session-card, .action-card, .stat-card').forEach(element => {
+            element.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+            });
+            
+            element.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    if (!this.style.transform.includes('scale(0.94)')) {
+                        this.style.transform = '';
+                    }
+                }, 100);
+            });
+        });
+
+        // Add loading state simulation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate stats cards
+            const statsCards = document.querySelectorAll('.stat-card');
+            statsCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(15px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 50 * index);
+            });
+
+            // Animate session cards
+            const sessionCards = document.querySelectorAll('.session-card');
+            sessionCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 + (100 * index));
+            });
+
+            // Animate action cards
+            const actionCards = document.querySelectorAll('.action-card');
+            actionCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 300 + (100 * index));
+            });
+
+            // Animate recent activity
+            const recentActivity = document.querySelector('.recent-activity');
+            recentActivity.style.opacity = '0';
+            recentActivity.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                recentActivity.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                recentActivity.style.opacity = '1';
+                recentActivity.style.transform = 'translateY(0)';
+            }, 500);
+        });
+
+        // Dynamic greeting based on time
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            const greetingEl = document.querySelector('.greeting-text');
+            
+            if (hour < 12) {
+                greetingEl.textContent = 'Good morning';
+            } else if (hour < 17) {
+                greetingEl.textContent = 'Good afternoon';
+            } else {
+                greetingEl.textContent = 'Good evening';
+            }
+        }
+
+        updateGreeting();
+
+        // Simulate real-time updates
+        function updateSessionTime() {
+            const sessionStatus = document.querySelector('.session-status.soon');
+            if (sessionStatus) {
+                const minutes = Math.max(1, parseInt(sessionStatus.textContent.match(/\d+/)?.[0] || 45) - 1);
+                sessionStatus.textContent = `In ${minutes} min`;
+                
+                if (minutes <= 5) {
+                    sessionStatus.style.background = 'linear-gradient(135deg, #ff4757 0%, #ff3742 100%)';
+                    sessionStatus.style.boxShadow = '0 4px 15px rgba(255, 71, 87, 0.4)';
+                }
+            }
+        }
+
+        // Update session time every minute
+        setInterval(updateSessionTime, 60000);
+
+        // Handle online/offline status
+        window.addEventListener('online', () => {
+            showToast('Connection restored');
+        });
+        
+        window.addEventListener('offline', () => {
+            showToast('Offline mode active');
+        });
+
+        // Add pull-to-refresh gesture simulation
+        let startY = 0;
+        let currentY = 0;
+        let pullThreshold = 80;
+        let isRefreshing = false;
+
+        document.addEventListener('touchstart', function(e) {
+            startY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchmove', function(e) {
+            if (window.scrollY === 0 && !isRefreshing) {
+                currentY = e.touches[0].clientY;
+                const pullDistance = currentY - startY;
+                
+                if (pullDistance > pullThreshold) {
+                    const header = document.querySelector('.header');
+                    header.style.transform = `translateY(${Math.min(pullDistance - pullThreshold, 20)}px)`;
+                    header.style.opacity = 0.8;
+                }
+            }
+        });
+
+        document.addEventListener('touchend', function(e) {
+            const pullDistance = currentY - startY;
+            const header = document.querySelector('.header');
+            
+            if (pullDistance > pullThreshold && !isRefreshing) {
+                isRefreshing = true;
+                header.style.transform = 'translateY(0)';
+                header.style.opacity = '1';
+                
+                showToast('Refreshing dashboard...');
+                
+                setTimeout(() => {
+                    showToast('Dashboard updated!');
+                    updateGreeting();
+                    isRefreshing = false;
+                }, 1500);
+            } else {
+                header.style.transform = 'translateY(0)';
+                header.style.opacity = '1';
+            }
+        });
+
+        // Add keyboard navigation for accessibility
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'n' && e.ctrlKey) {
+                e.preventDefault();
+                openNotifications();
+            }
+            
+            if (e.key === 'c' && e.ctrlKey) {
+                e.preventDefault();
+                openCalendar();
+            }
+            
+            if (e.key === '+' && e.ctrlKey) {
+                e.preventDefault();
+                quickSchedule();
+            }
+        });
+
+        // Simulate progressive loading of dashboard data
+        setTimeout(() => {
+            const notificationBadge = document.querySelector('.header-button .notification-badge');
+            if (notificationBadge) {
+                notificationBadge.style.animation = 'pulse 0.5s ease-in-out';
+            }
+        }, 3000);
+
+        // Add CSS animation for notification pulse
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.2); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
